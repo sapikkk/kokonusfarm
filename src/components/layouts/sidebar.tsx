@@ -19,6 +19,8 @@ import {
   LayoutTemplate,
   Tent,
   Factory,
+  ShoppingCart,
+  Truck,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 
@@ -109,6 +111,12 @@ const navItems: NavItem[] = [
     roles: ["ADMIN"],
   },
   {
+    title: "Penjualan",
+    href: "/admin/sales",
+    icon: ShoppingCart,
+    roles: ["ADMIN"],
+  },
+  {
     title: "Catatan Saya",
     href: "/worker",
     icon: LayoutDashboard,
@@ -124,6 +132,12 @@ const navItems: NavItem[] = [
     title: "Inventaris",
     href: "/worker/inventory",
     icon: Package,
+    roles: ["PEKERJA"],
+  },
+  {
+    title: "Pengiriman",
+    href: "/worker/delivery",
+    icon: Truck,
     roles: ["PEKERJA"],
   },
 ];
