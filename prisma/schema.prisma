@@ -1,0 +1,532 @@
+// This is your Prisma schema file for Kebun Hijau System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ===================================
+// USER & AUTHENTICATION
+// ===================================
+
+enum UserRole {
+  OWNER
+  ADMIN
+  PEKERJA
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String
+  password      String
+  role          UserRole  @default(PEKERJA)
+  avatar        String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  transactions  Transaction[]
+  productionLogs ProductionLog[]
+  inventoryLogs  InventoryLog[]
+  harvestSubmitted HarvestReport[] @relation("HarvestSubmitted")
+  harvestReviewed  HarvestReport[] @relation("HarvestReviewed")
+  deliveries       DeliveryLog[]
+  
+  @@map("users")
+}
+
+// ===================================
+// ACCOUNTING SYSTEM (Double-Entry)
+// ===================================
+
+enum AccountType {
+  ASSET        // Aset
+  LIABILITY    // Kewajiban
+  EQUITY       // Modal
+  REVENUE      // Pendapatan
+  EXPENSE      // Beban
+}
+
+model Account {
+  id          String      @id @default(cuid())
+  code        String      @unique  // e.g., "1-1000", "4-1000"
+  name        String                // e.g., "Kas", "Pendapatan Penjualan"
+  type        AccountType
+  description String?
+  isActive    Boolean     @default(true)
+  parentId    String?               // For hierarchical COA
+  parent      Account?    @relation("AccountHierarchy", fields: [parentId], references: [id])
+  children    Account[]   @relation("AccountHierarchy")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  // Relations
+  journalLines JournalLine[]
+  
+  @@map("accounts")
+}
+
+enum TransactionStatus {
+  DRAFT      // Draft
+  PENDING    // Menunggu Approval
+  APPROVED   // Disetujui
+  REJECTED   // Ditolak
+}
+
+model Transaction {
+  id          String            @id @default(cuid())
+  date        DateTime          @default(now())
+  description String
+  reference   String?           // e.g., Invoice number, Receipt number
+  status      TransactionStatus @default(DRAFT)
+  userId      String
+  user        User              @relation(fields: [userId], references: [id])
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  
+  // Relations
+  journalLines JournalLine[]
+  
+  @@map("transactions")
+}
+
+model JournalLine {
+  id            String      @id @default(cuid())
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  accountId     String
+  account       Account     @relation(fields: [accountId], references: [id])
+  debit         Decimal     @default(0) @db.Decimal(15, 2)
+  credit        Decimal     @default(0) @db.Decimal(15, 2)
+  notes         String?
+  createdAt     DateTime    @default(now())
+  
+  @@map("journal_lines")
+}
+
+// ===================================
+// INFRASTRUCTURE (Greenhouse & Installation)
+// ===================================
+
+// Tipe sistem tanam
+enum InstallationType {
+  SEMAI_TRAY    // Rak semai / tray
+  DFT           // Deep Flow Technique
+  NFT           // Nutrient Film Technique
+  DWC           // Deep Water Culture
+  WICK          // Wick System
+}
+
+// Greenhouse — menanggung Fixed Cost LISTRIK
+model Greenhouse {
+  id                  String         @id @default(cuid())
+  code                String         @unique  // e.g., "GH-01"
+  name                String                   // e.g., "Greenhouse Utama"
+  location            String?                  // Deskripsi lokasi
+  area                Decimal?       @db.Decimal(8, 2)   // Luas m²
+  isActive            Boolean        @default(true)
+
+  // Fixed Cost: Beban Listrik per siklus/bulan
+  fixedCostElectricity Decimal       @default(0) @db.Decimal(15, 2)  // Rp per bulan
+  electricityNotes     String?        // Keterangan (tagihan PLN, genset, dll)
+
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+
+  // Relations
+  installations        Installation[]
+
+  @@map("greenhouses")
+}
+
+// Installation (Rak/Meja/Pipa) — menanggung Fixed Cost NUTRISI per tandon
+model Installation {
+  id                  String           @id @default(cuid())
+  code                String           @unique  // e.g., "INST-A1"
+  name                String                     // e.g., "Rak Semai A", "Meja DFT B"
+  type                InstallationType
+  totalSlots          Int?                       // Jumlah lubang / slot tanam
+  isActive            Boolean          @default(true)
+
+  // Relasi ke Greenhouse
+  greenhouseId        String
+  greenhouse          Greenhouse       @relation(fields: [greenhouseId], references: [id])
+
+  // Fixed Cost: Beban Nutrisi per tandon
+  fixedCostNutrient   Decimal          @default(0) @db.Decimal(15, 2) // Rp per siklus
+  nutrientNotes       String?          // Keterangan (merk AB Mix, volume tandon, dll)
+
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+
+  // Relations
+  productionCycles    ProductionCycle[]
+
+  @@map("installations")
+}
+
+// ===================================
+// PRODUCTION SYSTEM (DWC Tracking)
+// ===================================
+
+enum PlantPhase {
+  SEMAI      // Seeding
+  BIBIT      // Seedling
+  TANAM      // Planted
+  PANEN      // Harvested
+  REJECTED   // Rejected/Failed
+}
+
+model ProductionCycle {
+  id              String        @id @default(cuid())
+  batchCode       String        @unique  // e.g., "BATCH-2024-001"
+  plantType       String                 // e.g., "Selada", "Kangkung"
+  phase           PlantPhase    @default(SEMAI)
+  initialQuantity Int                    // Jumlah awal bibit
+  currentQuantity Int                    // Jumlah saat ini
+  rejectedCount   Int           @default(0)  // Jumlah yang ditolak
+  startDate       DateTime      @default(now())
+  harvestDate     DateTime?              // Tanggal panen (jika sudah panen)
+  notes           String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  // ABC Costing — relasi ke Instalasi
+  // (Batch → Instalasi → Greenhouse = otomatis tarik cost nutrisi + listrik)
+  installationId  String?                // Nullable: belum semua batch di-assign instalasi
+  installation    Installation?  @relation(fields: [installationId], references: [id])
+
+  // Lifecycle Pack (Benih & Media)
+  activeSeedPackId  String?
+  activeSeedPack    ActivePack? @relation("SeedPackRelation", fields: [activeSeedPackId], references: [id])
+  
+  activeMediaPackId String?
+  activeMediaPack   ActivePack? @relation("MediaPackRelation", fields: [activeMediaPackId], references: [id])
+
+  // Fixed Cost Batch Semai: Benih & Rockwool (melekat langsung pada batch ini)
+  fixedCostSeed   Decimal        @default(0) @db.Decimal(15, 2)  // Total biaya benih
+  fixedCostMedia  Decimal        @default(0) @db.Decimal(15, 2)  // Total biaya rockwool
+
+  // Relations
+  productionLogs  ProductionLog[]
+  harvestReports  HarvestReport[]
+
+  @@map("production_cycles")
+}
+
+enum ProductionAction {
+  SEMAI_BENIH
+  SULAM
+  MOVE_TO_TANAM
+  TRANSPLANT_KOLAM
+  PHASE_CHANGE
+  QUANTITY_UPDATE
+  HARVEST        // Panen
+  REJECT         // Tolak
+  NOTE           // Catatan
+}
+
+model ProductionLog {
+  id          String           @id @default(cuid())
+  cycleId     String
+  cycle       ProductionCycle  @relation(fields: [cycleId], references: [id], onDelete: Cascade)
+  action      ProductionAction
+  fromPhase   PlantPhase?
+  toPhase     PlantPhase?
+  quantity    Int?             // Jumlah yang dipanen atau ditolak
+  notes       String?
+  photoUrl    String?          // URL foto untuk dokumentasi
+  userId      String
+  user        User             @relation(fields: [userId], references: [id])
+  createdAt   DateTime         @default(now())
+  
+  @@map("production_logs")
+}
+
+// ===================================
+// INVENTORY MANAGEMENT
+// ===================================
+
+enum InventoryCategory {
+  NUTRISI      // AB Mix, dll
+  MEDIA        // Rockwool, dll
+  BENIH        // Seeds
+  KEMASAN      // Packaging
+  ALAT         // Tools
+  LAINNYA      // Others
+}
+
+model InventoryItem {
+  id          String            @id @default(cuid())
+  code        String            @unique  // e.g., "NUT-001"
+  name        String                     // e.g., "AB Mix"
+  category    InventoryCategory
+  unit        String                     // e.g., "kg", "liter", "pack"
+  currentStock Decimal          @default(0) @db.Decimal(10, 2)
+  minStock    Decimal           @default(0) @db.Decimal(10, 2) // Minimum stock alert
+  unitPrice   Decimal           @default(0) @db.Decimal(15, 2)
+  description String?
+  isActive    Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  
+  // Relations
+  inventoryLogs InventoryLog[]
+  activePacks   ActivePack[]
+  salesItems    SalesOrderItem[] @relation("SalesOrderInventory")
+  packagingUsed SalesOrderItem[] @relation("SalesOrderPackaging")
+  
+  @@map("inventory_items")
+}
+
+enum InventoryMovement {
+  IN      // Barang masuk
+  OUT     // Barang keluar
+  ADJUST  // Penyesuaian
+}
+
+model InventoryLog {
+  id          String            @id @default(cuid())
+  itemId      String
+  item        InventoryItem     @relation(fields: [itemId], references: [id])
+  movement    InventoryMovement
+  quantity    Decimal           @db.Decimal(10, 2)
+  reference   String?           // Reference to transaction or production cycle
+  notes       String?
+  userId      String
+  user        User              @relation(fields: [userId], references: [id])
+  createdAt   DateTime          @default(now())
+  
+  @@map("inventory_logs")
+}
+
+// ===================================
+// ACTIVE PACK LIFECYCLE (Benih & Media)
+// ===================================
+
+enum ActivePackStatus {
+  DIBUKA
+  HABIS
+}
+
+model ActivePack {
+  id              String         @id @default(cuid())
+  itemId          String
+  item            InventoryItem  @relation(fields: [itemId], references: [id])
+  status          ActivePackStatus @default(DIBUKA)
+  
+  openedQty       Decimal?       @db.Decimal(10, 2)
+  currentQty      Decimal?       @db.Decimal(10, 2)
+  openedAt        DateTime       @default(now())
+  depletedAt      DateTime?
+  
+  // Saat dibuka: simpan harga per pack dari inventory
+  packPrice       Decimal        @db.Decimal(15, 2)
+  
+  // Saat dinyatakan habis: sistem menghitung total biji/dadu dari batch yang terkait
+  estimatedYield  Int?           // Total benih/dadu yang berhasil disemai
+  costPerUnit     Decimal?       @db.Decimal(15, 4) // packPrice / estimatedYield
+  
+  notes           String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Batch produksi yang menggunakan pack ini
+  seedProductionCycles  ProductionCycle[] @relation("SeedPackRelation")
+  mediaProductionCycles ProductionCycle[] @relation("MediaPackRelation")
+
+  @@map("active_packs")
+}
+
+// ===================================
+// ADDITIONAL TABLES
+// ===================================
+
+// Prive (Owner's Withdrawal)
+model Withdrawal {
+  id          String   @id @default(cuid())
+  amount      Decimal  @db.Decimal(15, 2)
+  description String
+  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
+  
+  @@map("withdrawals")
+}
+
+// Settings for system configuration
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  category  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
+
+// ===================================
+// HARVEST REPORT & HPP SYSTEM
+// ===================================
+
+enum HarvestReportStatus {
+  PENDING   // Menunggu review admin
+  APPROVED  // Disetujui, HPP sudah ditetapkan
+  REJECTED  // Ditolak admin
+}
+
+model HarvestReport {
+  id              String              @id @default(cuid())
+  cycleId         String
+  cycle           ProductionCycle     @relation(fields: [cycleId], references: [id], onDelete: Cascade)
+
+  // Data panen dari pekerja
+  harvestQuantity Decimal             @db.Decimal(10, 2)  // Hasil panen (qty)
+  harvestUnit     String              @default("kg")       // Unit: kg, pack, ikat
+  workerNotes     String?             // Catatan dari pekerja
+  status          HarvestReportStatus @default(PENDING)
+
+  // HPP — diisi admin saat approve
+  hppPerUnit      Decimal?            @db.Decimal(15, 2)  // HPP per unit
+  hppNotes        String?             // Keterangan/justifikasi HPP
+
+  // Breakdown biaya HPP (ABC Costing)
+  // Layer 1 — Batch Semai
+  costSeed        Decimal?            @db.Decimal(15, 2)  // Fixed Cost: Benih (dari batch)
+  costMedia       Decimal?            @db.Decimal(15, 2)  // Fixed Cost: Rockwool / media tanam (dari batch)
+  // Layer 2 — Instalasi
+  costNutrient    Decimal?            @db.Decimal(15, 2)  // Fixed Cost: Nutrisi tandon (dari instalasi)
+  // Layer 3 — Greenhouse
+  costElectricity Decimal?            @db.Decimal(15, 2)  // Fixed Cost: Listrik (dari greenhouse)
+  // Biaya Tambahan
+  costLabor       Decimal?            @db.Decimal(15, 2)  // Biaya tenaga kerja
+  costOther       Decimal?            @db.Decimal(15, 2)  // Biaya lain-lain
+
+  // Relasi pengguna
+  submittedById   String
+  submittedBy     User                @relation("HarvestSubmitted", fields: [submittedById], references: [id])
+  reviewedById    String?
+  reviewedBy      User?               @relation("HarvestReviewed", fields: [reviewedById], references: [id])
+  reviewedAt      DateTime?
+
+  // Jurnal akuntansi yang dibuat saat approve
+  journalTransactionId String?
+
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  @@map("harvest_reports")
+}
+
+// ===================================
+// SALES & CUSTOMER SYSTEM
+// ===================================
+
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String?
+  address   String?
+  type      String   @default("PERSONAL") // RESELL, PERSONAL
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  salesOrders SalesOrder[]
+
+  @@map("customers")
+}
+
+enum OrderStatus {
+  DRAFT
+  CONFIRMED
+  PACKED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PARTIAL
+  PAID
+}
+
+model SalesOrder {
+  id             String        @id @default(cuid())
+  orderNumber    String        @unique
+  
+  customerId     String?
+  customer       Customer?     @relation(fields: [customerId], references: [id])
+  
+  status         OrderStatus   @default(DRAFT)
+  paymentStatus  PaymentStatus @default(UNPAID)
+  
+  totalAmount    Decimal       @default(0) @db.Decimal(15, 2)
+  paidAmount     Decimal       @default(0) @db.Decimal(15, 2)
+  
+  costPackaging  Decimal       @default(0) @db.Decimal(15, 2)
+  costDelivery   Decimal       @default(0) @db.Decimal(15, 2)
+  
+  shippingAddress String?
+  notes          String?
+
+  transactionId  String?       @unique // Link ke tabel Transaction
+  
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  items          SalesOrderItem[]
+  deliveries     DeliveryLog[]
+
+  @@map("sales_orders")
+}
+
+model SalesOrderItem {
+  id              String        @id @default(cuid())
+  orderId         String
+  order           SalesOrder    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  inventoryItemId String
+  inventoryItem   InventoryItem @relation("SalesOrderInventory", fields: [inventoryItemId], references: [id])
+  
+  quantity        Decimal       @db.Decimal(10, 2)
+  unitPrice       Decimal       @db.Decimal(15, 2)
+  totalPrice      Decimal       @db.Decimal(15, 2)
+  
+  packagingItemId String?
+  packagingItem   InventoryItem? @relation("SalesOrderPackaging", fields: [packagingItemId], references: [id])
+  packagingQty    Decimal?      @db.Decimal(10, 2)
+
+  @@map("sales_order_items")
+}
+
+enum DeliveryStatus {
+  PENDING
+  SHIPPING
+  DELIVERED
+  FAILED
+}
+
+model DeliveryLog {
+  id           String        @id @default(cuid())
+  orderId      String
+  order        SalesOrder    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  kurirId      String?
+  kurir        User?         @relation(fields: [kurirId], references: [id])
+  
+  status       DeliveryStatus @default(PENDING)
+  deliveryDate DateTime?
+  notes        String?
+  photoUrl     String?       // Bukti foto/resi
+  
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("delivery_logs")
+}

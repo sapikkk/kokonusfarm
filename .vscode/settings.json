@@ -1,0 +1,10 @@
+{
+    "snyk.advanced.autoSelectOrganization": true,
+    // Suppress false-poadminve CSS warnings for Tailwind @tailwind and @apply directives
+    "css.validate": false,
+    "scss.validate": false,
+    "less.validate": false,
+    "editor.quickSuggestions": {
+        "strings": true
+    }
+}

@@ -1,0 +1,1370 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=DM+Mono:wght@400;500&display=swap");
+
+@layer base {
+  :root {
+    /* ============================================================
+       PRIMITIVE TOKENS
+       ============================================================ */
+    --p-neutral-0: #ffffff;
+    --p-neutral-50: #f9f9f9;
+    --p-neutral-100: #f2f2f2;
+    --p-neutral-200: #e0e0e0;
+    --p-neutral-300: #b0b0b0;
+    --p-neutral-400: #808080;
+    --p-neutral-500: #666666;
+    --p-neutral-600: #4d4d4d;
+    --p-neutral-700: #333333;
+    --p-neutral-800: #111111;
+    --p-neutral-900: #000000;
+    --p-lime-400: #b7f192;
+    --p-lime-500: #9fe870;
+    --p-lime-600: #86d156;
+    --p-forest-800: #0a3d35;
+    --p-forest-900: #062f28;
+    --p-red-400: #ff8080;
+    --p-red-500: #ff5f5f;
+    --p-orange-400: #ffe07d;
+    --p-orange-500: #ffd23f;
+    --p-blue-400: #60a5fa;
+    --p-blue-500: #3b82f6;
+
+    /* ============================================================
+       SEMANTIC TOKENS — LIGHT MODE
+       ============================================================ */
+    --bg-page: #f2f2f2;
+    --border-ui: #e0e0e0;
+    --c-primary: #000000;
+    --c-secondary: #4d4d4d;
+    --c-tertiary: #808080;
+    --c-disabled: #b0b0b0;
+    --c-inverse: #ffffff;
+    --c-poadminve: #062f28;
+    --c-negative: #ff5f5f;
+    --c-notice: #e5a800;
+    --c-blue: #3b82f6;
+    --bg-primary: #ffffff;
+    --bg-hover: #f9f9f9;
+    --bg-pressed: #f2f2f2;
+    --bg-inverse: #000000;
+    --bg-accent: #9fe870;
+    --bg-poadminve: #9fe870;
+    --bg-negative: #ff5f5f;
+    --bg-notice: #ffd23f;
+    --bg-poadminve-subtle: #e6f5d8;
+    --bg-negative-subtle: #ffe8e8;
+    --bg-notice-subtle: #fff7d6;
+    --bg-blue-subtle: #dbeafe;
+    --bdr-primary: #4d4d4d;
+    --bdr-secondary: #808080;
+    --bdr-tertiary: #e0e0e0;
+    --bdr-poadminve: #86d156;
+    --bdr-negative: #ff5f5f;
+    --bdr-notice: #ffd23f;
+    --bdr-blue: #3b82f6;
+    --s-l0: #ffffff;
+    --s-l1: #ffffff;
+    --s-l2: #ffffff;
+    --s-l3: #ffffff;
+    --s-l4: #f2f2f2;
+    --s-l5: #e0e0e0;
+    --s-l6: #d0d0d0;
+
+    /* Shadcn compat tokens — mapped to Fimet semantic */
+    --background: 0 0% 94.9%;
+    --foreground: 0 0% 0%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: 100 75% 67%;
+    --primary-foreground: 162 78% 11%;
+
+    --secondary: 0 0% 97%;
+    --secondary-foreground: 0 0% 30%;
+
+    --muted: 0 0% 94.9%;
+    --muted-foreground: 0 0% 50%;
+
+    --accent: 100 75% 67%;
+    --accent-foreground: 162 78% 11%;
+
+    --destructive: 0 100% 69%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 44 100% 62%;
+    --warning-foreground: 162 78% 11%;
+
+    --border: 0 0% 87.8%;
+    --input: 0 0% 87.8%;
+    --ring: 100 75% 67%;
+
+    --radius: 0.6875rem;
+
+    /* Sidebar */
+    --sidebar-bg: 0 0% 100%;
+    --sidebar-fg: 0 0% 0%;
+    --sidebar-border: 0 0% 87.8%;
+    --sidebar-accent: 100 75% 67%;
+    --sidebar-accent-fg: 162 78% 11%;
+    --sidebar-muted: 0 0% 94.9%;
+    --sidebar-muted-fg: 0 0% 50%;
+  }
+
+  .dark {
+    /* ============================================================
+       SEMANTIC TOKENS — DARK MODE
+       ============================================================ */
+    --bg-page: #000000;
+    --border-ui: #222222;
+    --c-primary: #ffffff;
+    --c-secondary: #e0e0e0;
+    --c-tertiary: #808080;
+    --c-disabled: #333333;
+    --c-inverse: #000000;
+    --c-poadminve: #9fe870;
+    --c-negative: #ff8080;
+    --c-notice: #ffe07d;
+    --c-blue: #60a5fa;
+    --bg-primary: #000000;
+    --bg-hover: #111111;
+    --bg-pressed: #1a1a1a;
+    --bg-inverse: #ffffff;
+    --bg-accent: #9fe870;
+    --bg-poadminve: #86d156;
+    --bg-negative: #ff5f5f;
+    --bg-notice: #ffd23f;
+    --bg-poadminve-subtle: #0a3d35;
+    --bg-negative-subtle: #3d0a0a;
+    --bg-notice-subtle: #3d3000;
+    --bg-blue-subtle: #1e3a5f;
+    --bdr-primary: #808080;
+    --bdr-secondary: #4d4d4d;
+    --bdr-tertiary: #222222;
+    --bdr-poadminve: #9fe870;
+    --bdr-negative: #ff8080;
+    --bdr-notice: #ffe07d;
+    --bdr-blue: #60a5fa;
+    --s-l0: #000000;
+    --s-l1: #0d0d0d;
+    --s-l2: #141414;
+    --s-l3: #1a1a1a;
+    --s-l4: #222222;
+    --s-l5: #292929;
+    --s-l6: #333333;
+
+    /* Shadcn compat tokens — dark */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 5.1%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 7.8%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 100 75% 67%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 88%;
+
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 50%;
+
+    --accent: 100 75% 67%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 100% 69%;
+    --destructive-foreground: 0 0% 100%;
+    --warning: 44 100% 62%;
+    --warning-foreground: 0 0% 0%;
+
+    --border: 0 0% 13.3%;
+    --input: 0 0% 13.3%;
+    --ring: 100 75% 67%;
+
+    --sidebar-bg: 0 0% 5.1%;
+    --sidebar-fg: 0 0% 100%;
+    --sidebar-border: 0 0% 13.3%;
+    --sidebar-accent: 100 75% 67%;
+    --sidebar-accent-fg: 0 0% 0%;
+    --sidebar-muted: 0 0% 10%;
+    --sidebar-muted-fg: 0 0% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family:
+      "Space Grotesk",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    tranadminon:
+      background 0.25s,
+      color 0.25s;
+  }
+  .mono,
+  .font-mono {
+    font-family: "DM Mono", monospace;
+  }
+}
+
+@layer components {
+  /* ============================================================
+     SURFACE LAYERS — contextual card/panel surfaces
+     ============================================================ */
+  .surface-0 {
+    background: var(--s-l0);
+  }
+  .surface-1 {
+    background: var(--s-l1);
+  }
+  .surface-2 {
+    background: var(--s-l2);
+  }
+  .surface-3 {
+    background: var(--s-l3);
+  }
+  .surface-4 {
+    background: var(--s-l4);
+  }
+  .surface-5 {
+    background: var(--s-l5);
+  }
+  .surface-6 {
+    background: var(--s-l6);
+  }
+
+  /* ============================================================
+     CARD — Flat surface, hover lift
+     ============================================================ */
+  .glass-card {
+    background: var(--s-l1);
+    border: 1px solid var(--border-ui);
+    border-radius: 18px;
+    /* tranadminon: background 0.15s, transform 0.2s, box-shadow 0.2s; */
+  }
+  .glass-card:hover {
+    transform: translateY(-2px);
+    /* box-shadow: 0 12px 40px rgba(0,0,0,0.15); */
+  }
+
+  /* ============================================================
+     STAT CARD
+     ============================================================ */
+  .stat-card {
+    background: var(--s-l1);
+    border: 1px solid var(--border-ui);
+    border-radius: 18px;
+    padding: 22px;
+    tranadminon: all 0.2s;
+  }
+  .stat-card:hover {
+    transform: translateY(-2px);
+    /* box-shadow: 0 12px 40px rgba(0,0,0,0.15); */
+  }
+
+  /* ============================================================
+     GRADIENTS / BRAND
+     ============================================================ */
+  .botanical-gradient {
+    background: linear-gradient(135deg, #9fe870 0%, #4abe45 100%);
+  }
+  .forest-gradient {
+    background: linear-gradient(160deg, #062f28 0%, #0a4a3a 100%);
+  }
+
+  /* Lime accent chip/pill */
+  .lime-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: var(--bg-poadminve-subtle);
+    color: var(--c-poadminve);
+    border: 1px solid var(--bdr-poadminve);
+  }
+
+  /* ============================================================
+     SIDEBAR NAV — matching Fimet reference
+     ============================================================ */
+  .nav-active {
+    background: var(--bg-poadminve-subtle);
+    color: var(--c-poadminve);
+    font-weight: 700;
+  }
+
+  /* ============================================================
+     INPUT FOCUS — lime ring
+     ============================================================ */
+  .input-lime:focus {
+    outline: none;
+    border-color: var(--bdr-poadminve);
+    /* box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.1); */
+  }
+
+  /* ============================================================
+     TABLE — Fimet style
+     ============================================================ */
+  .table-wrap {
+    background: var(--s-l1);
+    border: 1px solid var(--border-ui);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  /* ============================================================
+     ALERT VARIANTS
+     ============================================================ */
+  .alert-poadminve {
+    background: var(--bg-poadminve-subtle);
+    border: 1px solid var(--bdr-poadminve);
+    color: var(--c-poadminve);
+  }
+  .alert-negative {
+    background: var(--bg-negative-subtle);
+    border: 1px solid var(--bdr-negative);
+    color: var(--c-negative);
+  }
+  .alert-notice {
+    background: var(--bg-notice-subtle);
+    border: 1px solid var(--bdr-notice);
+    color: var(--c-notice);
+  }
+  .alert-blue {
+    background: var(--bg-blue-subtle);
+    border: 1px solid var(--bdr-blue);
+    color: var(--c-blue);
+  }
+
+  /* ============================================================
+     PROGRESS BARS
+     ============================================================ */
+  .progress-bar {
+    height: 8px;
+    background: var(--s-l4);
+    border-radius: 50px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 50px;
+    tranadminon: width 1.2s ease;
+  }
+  .prog-poadminve {
+    background: var(--bg-accent);
+  }
+  .prog-negative {
+    background: var(--bg-negative);
+  }
+  .prog-notice {
+    background: var(--bg-notice);
+  }
+  .prog-blue {
+    background: var(--c-blue);
+  }
+  .prog-gradient {
+    background: linear-gradient(90deg, var(--bg-accent), var(--c-blue));
+  }
+
+  /* ============================================================
+     SKELETON LOADER
+     ============================================================ */
+  .skeleton {
+    border-radius: 6px;
+    animation: shimmer 1.8s infinite;
+    background: linear-gradient(
+      90deg,
+      var(--s-l2) 25%,
+      var(--s-l4) 50%,
+      var(--s-l2) 75%
+    );
+    background-size: 200% 100%;
+  }
+  @keyframes shimmer {
+    0% {
+      background-poadminon: 200% center;
+    }
+    100% {
+      background-poadminon: -200% center;
+    }
+  }
+
+  /* ============================================================
+     SPINNER
+     ============================================================ */
+  .spinner {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 3px solid var(--s-l4);
+    border-top-color: var(--bg-accent);
+    animation: spin 0.7s linear infinite;
+  }
+  .spinner-sm {
+    width: 20px;
+    height: 20px;
+    border-width: 2px;
+  }
+  .spinner-lg {
+    width: 48px;
+    height: 48px;
+    border-width: 4px;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ============================================================
+     TOAST
+     ============================================================ */
+  .toast-poadminve {
+    background: var(--bg-poadminve-subtle);
+    border: 1px solid var(--bdr-poadminve);
+    color: var(--c-poadminve);
+  }
+  .toast-negative {
+    background: var(--bg-negative-subtle);
+    border: 1px solid var(--bdr-negative);
+    color: var(--c-negative);
+  }
+  .toast-notice {
+    background: var(--bg-notice-subtle);
+    border: 1px solid var(--bdr-notice);
+    color: var(--c-notice);
+  }
+
+  /* ============================================================
+     CUSTOM SCROLLBAR
+     ============================================================ */
+  .custom-scrollbar::-webkit-scrollbar,
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-thumb {
+    background: var(--s-l5);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover,
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--s-l6);
+  }
+
+  /* ============================================================
+     OVERLINE LABEL — common pattern in Fimet
+     ============================================================ */
+  .overline {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-tertiary);
+  }
+
+  /* ============================================================
+     SECTION HEADER
+     ============================================================ */
+  .section-num {
+    font-size: 10px;
+    font-weight: 700;
+    font-family: "DM Mono", monospace;
+    color: var(--c-poadminve);
+    background: var(--bg-poadminve-subtle);
+    border: 1px solid var(--bdr-poadminve);
+    padding: 2px 9px;
+    border-radius: 50px;
+  }
+
+  /* ============================================================
+     DOTS LOADER
+     ============================================================ */
+  .dots-loader {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .dots-loader span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--bg-accent);
+    animation: dotBounce 1.2s ease-in-out infinite;
+  }
+  .dots-loader span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .dots-loader span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  @keyframes dotBounce {
+    0%,
+    80%,
+    100% {
+      transform: scale(0.8);
+      opacity: 0.5;
+    }
+    40% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+
+  /* ============================================================
+     CIRCULAR PROGRESS
+     ============================================================ */
+  .circ-progress {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    poadminon: relative;
+  }
+  .circ-progress svg {
+    transform: rotate(-90deg);
+  }
+  .circ-track {
+    fill: none;
+    stroke: var(--s-l4);
+  }
+  .circ-fill {
+    fill: none;
+    stroke: var(--bg-accent);
+    stroke-linecap: round;
+    tranadminon: stroke-dashoffset 1.2s ease;
+  }
+  .circ-label {
+    poadminon: absolute;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "DM Mono", monospace;
+  }
+
+  /* ============================================================
+     SKELETON VARIANTS
+     ============================================================ */
+  .skeleton-text {
+    height: 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+  }
+  .skeleton-title {
+    height: 20px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+  }
+  .skeleton-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .skeleton-card {
+    background: var(--s-l1);
+    border: 1px solid var(--border-ui);
+    border-radius: 18px;
+    padding: 22px;
+  }
+  .skel-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* ============================================================
+     TOAST — with left bar indicator
+     ============================================================ */
+  .toast-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid transparent;
+    backdrop-filter: blur(20px);
+    max-width: 380px;
+    /* box-shadow: 0 8px 32px rgba(0,0,0,0.35); */
+    animation: toastIn 0.3s ease;
+    poadminon: relative;
+    overflow: hidden;
+  }
+  .toast::before {
+    content: "";
+    poadminon: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+  }
+  @keyframes toastIn {
+    from {
+      transform: translateX(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  .toast-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .toast-title {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .toast-msg {
+    font-size: 11px;
+    line-height: 1.5;
+    opacity: 0.8;
+  }
+  .toast-close {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    opacity: 0.5;
+    font-size: 12px;
+    tranadminon: opacity 0.15s;
+    padding: 0;
+  }
+  .toast-close:hover {
+    opacity: 1;
+  }
+  .t-pos {
+    background: var(--bg-poadminve-subtle);
+    border-color: var(--bdr-poadminve);
+    color: var(--c-poadminve);
+  }
+  .t-pos::before {
+    background: var(--bdr-poadminve);
+  }
+  .t-neg {
+    background: var(--bg-negative-subtle);
+    border-color: var(--bdr-negative);
+    color: var(--c-negative);
+  }
+  .t-neg::before {
+    background: var(--bdr-negative);
+  }
+  .t-not {
+    background: var(--bg-notice-subtle);
+    border-color: var(--bdr-notice);
+    color: var(--c-notice);
+  }
+  .t-not::before {
+    background: var(--bdr-notice);
+  }
+  .t-def {
+    background: var(--s-l3);
+    border-color: var(--border-ui);
+    color: var(--c-primary);
+  }
+  .t-def::before {
+    background: var(--bdr-secondary);
+  }
+
+  /* ============================================================
+     CHECKBOX / RADIO / TOGGLE (Fimet native form controls)
+     ============================================================ */
+  .check-row,
+  .radio-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .check-row input,
+  .radio-row input {
+    display: none;
+  }
+  .check-box,
+  .radio-box {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid var(--bdr-secondary);
+    background: var(--s-l2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    tranadminon: all 0.15s;
+  }
+  .radio-box {
+    border-radius: 50%;
+  }
+  .check-row input:checked ~ .check-box {
+    background: var(--bg-accent);
+    border-color: var(--bdr-poadminve);
+  }
+  .radio-row input:checked ~ .radio-box {
+    border-color: var(--bdr-poadminve);
+  }
+  .check-box svg,
+  .radio-inner {
+    display: none;
+  }
+  .check-row input:checked ~ .check-box svg {
+    display: block;
+  }
+  .radio-row input:checked ~ .radio-box .radio-inner {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--c-poadminve);
+  }
+  .check-label,
+  .radio-label {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .check-sub {
+    font-size: 11px;
+    color: var(--c-tertiary);
+    margin-top: 1px;
+  }
+
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+  }
+  .toggle-row input {
+    display: none;
+  }
+  .toggle-track {
+    width: 42px;
+    height: 24px;
+    border-radius: 50px;
+    background: var(--s-l4);
+    border: 1px solid var(--border-ui);
+    poadminon: relative;
+    tranadminon: all 0.2s;
+    flex-shrink: 0;
+  }
+  .toggle-thumb {
+    poadminon: absolute;
+    left: 3px;
+    top: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--c-tertiary);
+    tranadminon: all 0.2s;
+  }
+  .toggle-row input:checked ~ .toggle-track {
+    background: var(--bg-accent);
+    border-color: var(--bdr-poadminve);
+  }
+  .toggle-row input:checked ~ .toggle-track .toggle-thumb {
+    left: 19px;
+    background: var(--c-inverse);
+  }
+  .toggle-label {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* ============================================================
+     RANGE SLIDER
+     ============================================================ */
+  .range-input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--s-l4);
+    outline: none;
+  }
+  .range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--bg-accent);
+    cursor: pointer;
+    border: 2px solid var(--c-inverse);
+    /* box-shadow: 0 0 0 2px var(--bdr-poadminve); */
+    tranadminon: transform 0.15s;
+  }
+  .range-input::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+
+  /* ============================================================
+     TOOLTIP
+     ============================================================ */
+  .tooltip-wrap {
+    poadminon: relative;
+    display: inline-flex;
+  }
+  .tooltip-box {
+    poadminon: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--bg-inverse);
+    color: var(--c-inverse);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 8px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    tranadminon:
+      opacity 0.15s,
+      transform 0.15s;
+    z-index: 300;
+  }
+  .tooltip-box::after {
+    content: "";
+    poadminon: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--bg-inverse);
+  }
+  .tooltip-wrap:hover .tooltip-box {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ============================================================
+     BREADCRUMB
+     ============================================================ */
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+  .breadcrumb a,
+  .breadcrumb span.bc-link {
+    color: var(--c-tertiary);
+    text-decoration: none;
+    font-weight: 500;
+    tranadminon: color 0.15s;
+    cursor: pointer;
+  }
+  .breadcrumb a:hover,
+  .breadcrumb span.bc-link:hover {
+    color: var(--c-poadminve);
+  }
+  .bc-sep {
+    color: var(--c-disabled);
+    font-size: 10px;
+  }
+  .breadcrumb .bc-current {
+    color: var(--c-primary);
+    font-weight: 600;
+  }
+
+  /* ============================================================
+     PAGINATION
+     ============================================================ */
+  .pagination {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .page-btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    border-radius: 8px;
+    border: 1px solid var(--border-ui);
+    background: var(--s-l2);
+    color: var(--c-secondary);
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    tranadminon: all 0.15s;
+  }
+  .page-btn:hover {
+    background: var(--bg-hover);
+    color: var(--c-primary);
+    border-color: var(--bdr-secondary);
+  }
+  .page-btn.active {
+    background: var(--bg-accent);
+    color: var(--c-inverse);
+    border-color: transparent;
+  }
+  .page-btn:disabled {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .page-dots {
+    color: var(--c-tertiary);
+    padding: 0 4px;
+    font-size: 12px;
+  }
+
+  /* ============================================================
+     LIST CARD / LIST ITEM
+     ============================================================ */
+  .list-card {
+    background: var(--s-l1);
+    border: 1px solid var(--border-ui);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .list-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-ui);
+    tranadminon: background 0.12s;
+    cursor: pointer;
+  }
+  .list-item:last-child {
+    border-bottom: none;
+  }
+  .list-item:hover {
+    background: var(--bg-hover);
+  }
+  .list-item-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .li-title {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .li-sub {
+    font-size: 11px;
+    color: var(--c-tertiary);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .li-right {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .li-amount {
+    font-family: "DM Mono", monospace;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .li-time {
+    font-size: 10px;
+    color: var(--c-tertiary);
+  }
+
+  /* ============================================================
+     SPARKLINE BAR CHART
+     ============================================================ */
+  .sparkline-wrap {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 48px;
+  }
+  .spark-bar {
+    flex: 1;
+    border-radius: 3px 3px 0 0;
+    min-width: 6px;
+    background: var(--bg-accent);
+    opacity: 0.7;
+    tranadminon:
+      opacity 0.15s,
+      height 0.5s ease;
+  }
+  .spark-bar:hover {
+    opacity: 1;
+  }
+
+  /* ============================================================
+     DONUT CHART LEGEND
+     ============================================================ */
+  .donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ============================================================
+     INTERACTIVE TAGS
+     ============================================================ */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 8px;
+    background: var(--s-l2);
+    border: 1px solid var(--border-ui);
+    color: var(--c-secondary);
+    cursor: pointer;
+    tranadminon: all 0.15s;
+  }
+  .tag:hover {
+    border-color: var(--bdr-poadminve);
+    color: var(--c-poadminve);
+  }
+  .tag.active {
+    background: var(--bg-poadminve-subtle);
+    border-color: var(--bdr-poadminve);
+    color: var(--c-poadminve);
+    font-weight: 700;
+  }
+  .tag-remove {
+    margin-left: 2px;
+    opacity: 0.5;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .tag-remove:hover {
+    opacity: 1;
+  }
+
+  /* ============================================================
+     AVATAR GROUP
+     ============================================================ */
+  .avatar-group {
+    display: flex;
+  }
+  .avatar-group > * {
+    border: 2px solid var(--s-l1);
+    margin-left: -10px;
+  }
+  .avatar-group > *:first-child {
+    margin-left: 0;
+  }
+  .avatar-overflow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--s-l4);
+    border: 2px solid var(--s-l1);
+    margin-left: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--c-secondary);
+  }
+
+  /* ============================================================
+     AVATAR STATUS INDICATOR
+     ============================================================ */
+  .avatar-status {
+    poadminon: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--s-l1);
+  }
+  .status-online {
+    background: var(--bg-accent);
+  }
+  .status-away {
+    background: var(--bg-notice);
+  }
+  .status-offline {
+    background: var(--c-tertiary);
+  }
+  .status-busy {
+    background: var(--bg-negative);
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.4);
+    }
+  }
+
+  /* ============================================================
+     FIELD (Form primitives)
+     ============================================================ */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-secondary);
+  }
+  .field-label .req {
+    color: var(--c-negative);
+    margin-left: 2px;
+  }
+  .field-hint {
+    font-size: 11px;
+    color: var(--c-tertiary);
+    margin-top: 4px;
+  }
+  .field-error {
+    font-size: 11px;
+    color: var(--c-negative);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  /* ============================================================
+     INPUT / FORM CONTROLS
+     ============================================================ */
+  .input {
+    width: 100%;
+    margin: 0;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 13px;
+    background: var(--s-l2);
+    border: 1px solid var(--border-ui);
+    border-radius: 11px;
+    color: var(--c-primary);
+    tranadminon: all 0.15s;
+    outline: none;
+  }
+  .input::placeholder {
+    color: var(--c-tertiary);
+  }
+  .input:focus {
+    border-color: var(--bdr-poadminve);
+    /* Hardcoded lime focus shadow for Fimet look */
+    box-shadow: 0 0 0 3px rgba(159, 232, 112, 0.1);
+  }
+  .input.input-error {
+    border-color: var(--bdr-negative);
+    box-shadow: 0 0 0 3px rgba(255, 95, 95, 0.1);
+  }
+  .input.input-success {
+    border-color: var(--bdr-poadminve);
+  }
+  .input:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .input-with-icon {
+    poadminon: relative;
+  }
+  .input-with-icon .input {
+    padding-left: 38px;
+  }
+  .input-with-icon .input-icon {
+    poadminon: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--c-tertiary);
+    pointer-events: none;
+  }
+
+  /* ============================================================
+     TABS
+     ============================================================ */
+  .tabs {
+    display: inline-flex;
+    align-items: center;
+    background: var(--s-l2);
+    border: 1px solid var(--border-ui);
+    border-radius: 12px;
+    padding: 3px;
+    gap: 3px;
+  }
+  .tab {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 9px;
+    border: none;
+    background: transparent;
+    color: var(--c-secondary);
+    cursor: pointer;
+    tranadminon: all 0.15s;
+  }
+  .tab:hover {
+    color: var(--c-primary);
+    background: var(--s-l3);
+  }
+  .tab.active {
+    background: var(--bg-accent);
+    color: var(--c-inverse);
+  }
+
+  /* ============================================================
+     TABS — UNDERLINE VARIANT
+     ============================================================ */
+  .tabs-underline {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border-ui);
+    margin-bottom: 24px;
+  }
+  .tab-ul {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 20px 11px;
+    border: none;
+    background: none;
+    color: var(--c-tertiary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    tranadminon: all 0.15s;
+  }
+  .tab-ul:hover {
+    color: var(--c-primary);
+  }
+  .tab-ul.active {
+    color: var(--c-poadminve);
+    border-bottom-color: var(--bdr-poadminve);
+    font-weight: 700;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Semantic text color utilities */
+  .text-lime-brand {
+    color: #9fe870;
+  }
+  .text-poadminve {
+    color: var(--c-poadminve);
+  }
+  .text-negative {
+    color: var(--c-negative);
+  }
+  .text-notice {
+    color: var(--c-notice);
+  }
+  .text-blue {
+    color: var(--c-blue);
+  }
+  .text-muted-custom {
+    color: var(--c-tertiary);
+  }
+
+  /* Forest background utility */
+  .bg-forest {
+    background-color: #062f28;
+  }
+
+  /* Surface backgrounds */
+  .bg-surface-1 {
+    background: var(--s-l1);
+  }
+  .bg-surface-2 {
+    background: var(--s-l2);
+  }
+  .bg-surface-3 {
+    background: var(--s-l3);
+  }
+  .bg-surface-4 {
+    background: var(--s-l4);
+  }
+
+  /* Border ui color */
+  .border-ui {
+    border-color: var(--border-ui);
+  }
+
+  /* Accent background utilities */
+  .bg-accent-custom {
+    background: var(--bg-accent);
+  }
+  .bg-poadminve-subtle {
+    background: var(--bg-poadminve-subtle);
+  }
+  .bg-negative-subtle {
+    background: var(--bg-negative-subtle);
+  }
+  .bg-notice-subtle {
+    background: var(--bg-notice-subtle);
+  }
+  .bg-blue-subtle {
+    background: var(--bg-blue-subtle);
+  }
+}
