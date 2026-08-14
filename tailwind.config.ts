@@ -121,8 +121,8 @@ const config = {
         "3xl": "1.25rem",
       },
       fontFamily: {
-        sans: ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-        mono: ['DM Mono', 'monospace'],
+        sans: ['var(--font-space-grotesk)', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        mono: ['var(--font-dm-mono)', 'monospace'],
       },
       fontSize: {
         'display': ['48px', { lineHeight: '1', fontWeight: '900', letterSpacing: '-0.05em' }],

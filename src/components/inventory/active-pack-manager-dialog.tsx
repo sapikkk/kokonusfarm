@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { PackageOpen, XCircle, CheckCircle, Loader2, Leaf, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -40,13 +40,7 @@ export function ActivePackManagerDialog({ itemId, itemName, currentStock, catego
   const [loading, setLoading] = useState(false)
   const [activePacks, setActivePacks] = useState<ActivePack[]>([])
 
-  useEffect(() => {
-    if (open) {
-      fetchPacks()
-    }
-  }, [open])
-
-  async function fetchPacks() {
+  const fetchPacks = useCallback(async () => {
     setLoading(true)
     try {
       const res = await fetch("/api/active-packs")
@@ -58,7 +52,13 @@ export function ActivePackManagerDialog({ itemId, itemName, currentStock, catego
     } finally {
       setLoading(false)
     }
-  }
+  }, [itemId])
+
+  useEffect(() => {
+    if (open) {
+      fetchPacks()
+    }
+  }, [open, fetchPacks])
 
   async function handleOpenPack() {
     if (currentStock < 1) return alert("Stok di gudang habis!")

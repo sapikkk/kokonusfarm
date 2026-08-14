@@ -27,7 +27,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
           className={cn(
             "inline-flex items-center gap-1 text-[11px] font-bold px-[9px] py-[3px] rounded-[50px]",
             dir === "up"
-              ? "bg-[--bg-poadminve-subtle] text-[--c-poadminve]"
+              ? "bg-[--bg-positive-subtle] text-[--c-positive]"
               : "bg-[--bg-negative-subtle] text-[--c-negative]"
           )}
         >
@@ -41,7 +41,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
             style={{
               width: barWidth,
               background: barColor || "var(--bg-accent)",
-              tranadminon: "width 1s ease",
+              transition: "width 1s ease",
             }}
           />
         </div>
@@ -54,11 +54,11 @@ StatCard.displayName = "StatCard"
 /* ──────────────────────────────────────────────
    ContentCard — card with icon, title, body, footer
    Usage:
-   <ContentCard iconBg="poadminve" title="Laporan Bulanan" body="..." status="Selesai" meta="Jul 2025" />
+   <ContentCard iconBg="positive" title="Laporan Bulanan" body="..." status="Selesai" meta="Jul 2025" />
 ────────────────────────────────────────────── */
 
 interface ContentCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  iconBg?: "poadminve" | "negative" | "notice" | "blue" | "default"
+  iconBg?: "positive" | "negative" | "notice" | "blue" | "default"
   icon?: React.ReactNode
   title: string
   body: string

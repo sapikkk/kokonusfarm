@@ -53,7 +53,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex bg-[--bg-page] text-[--c-primary] tranadminon-colors relative">
+    <div className="min-h-screen flex bg-[--bg-page] text-[--c-primary] transition-colors relative">
       <div className="absolute top-6 right-6 z-50">
         <Button variant="secondary" size="icon" className="rounded-full" onClick={toggleTheme}>
           {isDark ? <Sun className="w-[15px] h-[15px]" /> : <Moon className="w-[15px] h-[15px]" />}
@@ -63,8 +63,8 @@ export default function LoginPage() {
       {/* Left Decorative Panel */}
       <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 forest-gradient relative overflow-hidden">
         <div className="flex items-center gap-3 relative z-10">
-          <div className="h-10 w-10 rounded-xl flex items-center justify-center bg-[--bg-poadminve-subtle]">
-            <Leaf className="h-5 w-5 text-[--c-poadminve]" />
+          <div className="h-10 w-10 rounded-xl flex items-center justify-center bg-[--bg-positive-subtle]">
+            <Leaf className="h-5 w-5 text-[--c-positive]" />
           </div>
           <span className="text-white text-xl font-bold">Kebun <span className="text-lime-brand">Hijau</span></span>
         </div>

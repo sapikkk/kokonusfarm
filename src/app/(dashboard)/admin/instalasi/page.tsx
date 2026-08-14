@@ -47,11 +47,11 @@ const TYPE_LABEL: Record<string, string> = {
   WICK: "Wick",
 };
 
-const TYPE_VARIANT: Record<string, "blue" | "notice" | "poadminve" | "default"> = {
+const TYPE_VARIANT: Record<string, "blue" | "notice" | "positive" | "default"> = {
   SEMAI_TRAY: "default",
   DFT: "blue",
   NFT: "notice",
-  DWC: "poadminve",
+  DWC: "positive",
   WICK: "default",
 };
 
@@ -232,7 +232,7 @@ export default async function AdminInstalasiPage() {
                         {item._count.productionCycles} batch
                       </TableCell>
                       <TableCell>
-                        <Badge variant={item.isActive ? "poadminve" : "notice"} dot>
+                        <Badge variant={item.isActive ? "positive" : "notice"} dot>
                           {item.isActive ? "Aktif" : "Nonaktif"}
                         </Badge>
                       </TableCell>

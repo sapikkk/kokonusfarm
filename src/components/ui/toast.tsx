@@ -6,14 +6,14 @@ import { cn } from "@/lib/utils"
 /* ────────────────────── Toast ────────────────────── */
 
 interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "poadminve" | "negative" | "notice" | "default"
+  variant?: "positive" | "negative" | "notice" | "default"
   onDismiss?: () => void
 }
 
 const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   ({ className, variant = "default", onDismiss, children, ...props }, ref) => {
     const variantClass = {
-      poadminve: "t-pos",
+      positive: "t-pos",
       negative: "t-neg",
       notice: "t-not",
       default: "t-def",

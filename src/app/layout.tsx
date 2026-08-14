@@ -1,6 +1,19 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import { Providers } from "@/components/providers"
+import { Space_Grotesk, DM_Mono } from "next/font/google"
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  weight: ["300", "400", "500", "600", "700"],
+})
+
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  variable: "--font-dm-mono",
+  weight: ["400", "500"],
+})
 
 export const metadata: Metadata = {
   title: "Kebun Hijau - Sistem Manajemen Hidroponik",
@@ -13,15 +26,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="id" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=DM+Mono:wght@400;500&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="id" suppressHydrationWarning className={`${spaceGrotesk.variable} ${dmMono.variable}`}>
       <body className="font-sans">
         <Providers>{children}</Providers>
       </body>

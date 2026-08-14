@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-[7px] whitespace-nowrap font-bold tranadminon-all duration-150 cursor-pointer relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-[0.38]",
+  "inline-flex items-center justify-center gap-[7px] whitespace-nowrap font-bold transition-all duration-150 cursor-pointer relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-[0.38]",
   {
     variants: {
       variant: {
@@ -20,9 +20,9 @@ const buttonVariants = cva(
         // Danger
         destructive:
           "bg-[--bg-negative] text-white hover:brightness-110 hover:-translate-y-px",
-        // Poadminve (subtle)
-        poadminve:
-          "bg-[--bg-poadminve-subtle] text-[--c-poadminve] border border-[--bdr-poadminve] hover:bg-[--bg-poadminve] hover:text-[--c-inverse]",
+        // Positive (subtle)
+        positive:
+          "bg-[--bg-positive-subtle] text-[--c-positive] border border-[--bdr-positive] hover:bg-[--bg-positive] hover:text-[--c-inverse]",
         // Notice
         notice:
           "bg-[--bg-notice-subtle] text-[--c-notice] border border-[--bdr-notice]",
@@ -35,7 +35,7 @@ const buttonVariants = cva(
         forest:
           "bg-[#062F28] text-white hover:bg-[#0a4a3a]",
         mint:
-          "bg-[--bg-poadminve-subtle] text-[--c-poadminve] hover:bg-[--bg-poadminve] hover:text-[--c-inverse]",
+          "bg-[--bg-positive-subtle] text-[--c-positive] hover:bg-[--bg-positive] hover:text-[--c-inverse]",
         // Outline variant
         outline:
           "bg-transparent text-[--c-primary] border border-[--bdr-secondary] hover:bg-[--bg-hover]",

@@ -161,17 +161,17 @@ export function Sidebar({ userRole }: SidebarProps) {
     <div
       className={cn(
         "flex h-full flex-col gap-2 relative",
-        "bg-[--s-l0] border-r border-[--border-ui] z-40 tranadminon-colors",
+        "bg-[--s-l0] border-r border-[--border-ui] z-40 transition-colors",
       )}
     >
       {/* Logo */}
       <div className="flex h-14 items-center px-[22px] lg:h-[64px] border-b border-[--border-ui]">
         <Link href="/" className="flex items-center gap-3 font-semibold group">
-          <div className="h-8 w-8 rounded-[9px] flex items-center justify-center bg-[--s-l2] text-[--c-primary] group-hover:-translate-y-0.5 tranadminon-all">
+          <div className="h-8 w-8 rounded-[9px] flex items-center justify-center bg-[--s-l2] text-[--c-primary] group-hover:-translate-y-0.5 transition-all">
             <Leaf className="h-[14px] w-[14px]" />
           </div>
           <span className="text-lg font-bold tracking-tight text-[--c-primary]">
-            Kebun <span className="text-[--c-poadminve]">Hijau</span>
+            Kebun <span className="text-[--c-positive]">Hijau</span>
           </span>
         </Link>
       </div>
@@ -196,7 +196,7 @@ export function Sidebar({ userRole }: SidebarProps) {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-[12px] rounded-[11px] px-[14px] py-[10px] text-[13px] font-bold tranadminon-all duration-200 cursor-pointer",
+                    "flex items-center gap-[12px] rounded-[11px] px-[14px] py-[10px] text-[13px] font-bold transition-all duration-200 cursor-pointer",
                     isActive
                       ? "nav-active"
                       : "text-[--c-secondary] hover:bg-[--bg-hover] hover:text-[--c-primary]",
@@ -204,8 +204,8 @@ export function Sidebar({ userRole }: SidebarProps) {
                 >
                   <Icon
                     className={cn(
-                      "h-[18px] w-[18px] shrink-0 tranadminon-colors",
-                      isActive ? "text-[--c-poadminve]" : "text-[--c-tertiary]",
+                      "h-[18px] w-[18px] shrink-0 transition-colors",
+                      isActive ? "text-[--c-positive]" : "text-[--c-tertiary]",
                     )}
                   />
                   {item.title}
@@ -220,7 +220,7 @@ export function Sidebar({ userRole }: SidebarProps) {
       <div className="p-4 border-t border-[--border-ui]">
         <button
           onClick={handleSignOut}
-          className="w-full flex items-center gap-[12px] px-[14px] py-[10px] rounded-[11px] text-[13px] font-bold tranadminon-all duration-200 text-[--c-secondary] hover:bg-[--bg-negative-subtle] hover:text-[--c-negative]"
+          className="w-full flex items-center gap-[12px] px-[14px] py-[10px] rounded-[11px] text-[13px] font-bold transition-all duration-200 text-[--c-secondary] hover:bg-[--bg-negative-subtle] hover:text-[--c-negative]"
         >
           <LogOut className="h-[18px] w-[18px] text-[--c-tertiary] group-hover:text-[--c-negative]" />
           Keluar

@@ -61,9 +61,9 @@ Sistem Kebun Hijau didesain dari sudut pandang pengguna. Tiga persona utama mewa
 
 ---
 
-#### Persona 1: Budi — Owner / Pemilik
+#### Persona 1:  sapik — Owner / Pemilik
 
-> **Budi Santoso** | Pemilik Kebun Hijau | 45 tahun
+> ** sapik Santoso** | Pemilik Kebun Hijau | 45 tahun
 >
 > *"Saya ingin tahu persis berapa untung per batch panen tanpa harus tanya ke staf."*
 
@@ -76,9 +76,9 @@ Sistem Kebun Hijau didesain dari sudut pandang pengguna. Tiga persona utama mewa
 
 ---
 
-#### Persona 2: Siti — Admin / Pembukuan
+#### Persona 2:   — Admin / Pembukuan
 
-> **Siti Rahayu** | Admin / Pembukuan | 32 tahun
+> **  Rahayu** | Admin / Pembukuan | 32 tahun
 >
 > *"Saya butuh sistem yang membantu saya memastikan debit dan kredit selalu balance, tanpa risiko salah input."*
 
@@ -91,9 +91,9 @@ Sistem Kebun Hijau didesain dari sudut pandang pengguna. Tiga persona utama mewa
 
 ---
 
-#### Persona 3: Agus — Pekerja / Operator Lapangan
+#### Persona 3:   — Pekerja / Operator Lapangan
 
-> **Agus Wijaya** | Operator Lapangan | 27 tahun
+> **  Wijaya** | Operator Lapangan | 27 tahun
 >
 > *"Tangan saya sering basah, jadi saya butuh aplikasi yang bisa dipakai cepat di HP dengan tombol besar."*
 
@@ -113,12 +113,12 @@ Skenario ini merepresentasikan siklus paling kompleks dalam sistem — dari trig
 
 | Step | Aktor | Aksi | Sistem | Hasil |
 |---|---|---|---|---|
-| 1 | Agus (Pekerja) | Tanaman selada di Instalasi A1 usia 30 hari — siap panen | — | Trigger manual oleh pekerja |
-| 2 | Agus (Pekerja) | Buka HP, Login, Pilih menu Produksi, Pilih Batch A1, Tekan PANEN, Input berat 15 kg | Validasi input & kirim ke queue | Status batch berubah ke HARVEST_PENDING |
+| 1 |   (Pekerja) | Tanaman selada di Instalasi A1 usia 30 hari — siap panen | — | Trigger manual oleh pekerja |
+| 2 |   (Pekerja) | Buka HP, Login, Pilih menu Produksi, Pilih Batch A1, Tekan PANEN, Input berat 15 kg | Validasi input & kirim ke queue | Status batch berubah ke HARVEST_PENDING |
 | 3 | Sistem | — | Generate notifikasi ke Admin. Kalkulasi estimasi HPP dari cost benih, rockwool, nutrisi, listrik | Notifikasi masuk ke dashboard Admin |
-| 4 | Siti (Admin) | Buka dashboard, lihat Harvest Report dari Agus, review yield & HPP estimasi | Tampilkan breakdown biaya per unit | Admin siap approve/reject |
-| 5 | Siti (Admin) | Klik Approve, tetapkan HPP final | Auto-generate Jurnal Double-Entry: Persediaan Barang Jadi +, Barang Dalam Proses - | Transaksi akuntansi terbuat |
-| 6 | Budi (Owner) | Buka dashboard Owner | Neraca dan saldo akun ter-update  xxx | Owner melihat aset bertambah |
+| 4 |   (Admin) | Buka dashboard, lihat Harvest Report dari  , review yield & HPP estimasi | Tampilkan breakdown biaya per unit | Admin siap approve/reject |
+| 5 |   (Admin) | Klik Approve, tetapkan HPP final | Auto-generate Jurnal Double-Entry: Persediaan Barang Jadi +, Barang Dalam Proses - | Transaksi akuntansi terbuat |
+| 6 |  sapik (Owner) | Buka dashboard Owner | Neraca dan saldo akun ter-update  xxx | Owner melihat aset bertambah |
 
 ---
 
@@ -126,10 +126,10 @@ Skenario ini merepresentasikan siklus paling kompleks dalam sistem — dari trig
 
 | Step | Aktor | Aksi | Sistem | Hasil |
 |---|---|---|---|---|
-| 1 | Agus (Pekerja) | Cek stok — nutrisi hampir habis, sistem menampilkan alert merah | Alert otomatis jika stok < minimum threshold | Alert terlihat di dashboard Pekerja & Admin |
-| 2 | Siti (Admin) | Buat Jurnal Pembelian, input faktur supplier, catat debit Inventaris & kredit Kas/Hutang | Validasi debit = kredit, simpan transaksi PENDING | Draft jurnal tersimpan |
-| 3 | Siti (Admin) | Approve transaksi sendiri (jika otorisasi) | Update saldo COA, generate inventory log IN | Stok nutrisi bertambah, kas berkurang |
-| 4 | Agus (Pekerja) | Buka Active Pack baru dari batch nutrisi yang baru masuk | Catat cost per unit berdasarkan harga beli | Active Pack siap dialokasikan ke produksi |
+| 1 |   (Pekerja) | Cek stok — nutrisi hampir habis, sistem menampilkan alert merah | Alert otomatis jika stok < minimum threshold | Alert terlihat di dashboard Pekerja & Admin |
+| 2 |   (Admin) | Buat Jurnal Pembelian, input faktur supplier, catat debit Inventaris & kredit Kas/Hutang | Validasi debit = kredit, simpan transaksi PENDING | Draft jurnal tersimpan |
+| 3 |   (Admin) | Approve transaksi sendiri (jika otorisasi) | Update saldo COA, generate inventory log IN | Stok nutrisi bertambah, kas berkurang |
+| 4 |   (Pekerja) | Buka Active Pack baru dari batch nutrisi yang baru masuk | Catat cost per unit berdasarkan harga beli | Active Pack siap dialokasikan ke produksi |
 
 ---
 
@@ -137,9 +137,9 @@ Skenario ini merepresentasikan siklus paling kompleks dalam sistem — dari trig
 
 | Step | Aktor | Aksi | Sistem | Hasil |
 |---|---|---|---|---|
-| 1 | Siti (Admin) | Buat Sales Order baru, pilih pelanggan, tambahkan item (selada kg) | Validasi stok tersedia | SO dalam status DRAFT |
-| 2 | Siti (Admin) | Konfirmasi SO, input metode pembayaran | Kurangi stok inventaris otomatis, generate invoice | Stok berkurang, piutang/kas bertambah |
-| 3 | Agus (Pekerja) | Update status pengiriman menjadi DELIVERED | Record delivery confirmation timestamp | Barang dinyatakan terkirim |
+| 1 |   (Admin) | Buat Sales Order baru, pilih pelanggan, tambahkan item (selada kg) | Validasi stok tersedia | SO dalam status DRAFT |
+| 2 |   (Admin) | Konfirmasi SO, input metode pembayaran | Kurangi stok inventaris otomatis, generate invoice | Stok berkurang, piutang/kas bertambah |
+| 3 |   (Pekerja) | Update status pengiriman menjadi DELIVERED | Record delivery confirmation timestamp | Barang dinyatakan terkirim |
 | 4 | Sistem | — | Auto-generate Jurnal Pendapatan: Kas/Piutang debit, Pendapatan Penjualan kredit | Laporan laba-rugi Owner ter-update |
 
 ---
@@ -327,7 +327,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US2.1 — Manajemen Chart of Accounts (COA) dengan Hierarki
 
-**Persona:** Siti (Admin) | **Priority:** HIGHEST | **Story Points:** 8 pts | **Assignee:** Backend Dev
+**Persona:**   (Admin) | **Priority:** HIGHEST | **Story Points:** 8 pts | **Assignee:** Backend Dev
 
 *Sebagai Admin, saya ingin membuat dan mengelola Chart of Accounts dengan struktur hierarki parent-child agar pembukuan terorganisir sesuai standar akuntansi Indonesia.*
 
@@ -357,7 +357,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US2.2 — Pencatatan Jurnal Transaksi Double-Entry
 
-**Persona:** Siti (Admin) | **Priority:** HIGHEST | **Story Points:** 8 pts | **Assignee:** Backend Dev
+**Persona:**   (Admin) | **Priority:** HIGHEST | **Story Points:** 8 pts | **Assignee:** Backend Dev
 
 *Sebagai Admin, saya ingin mencatat transaksi jurnal dengan validasi debit-kredit otomatis agar laporan neraca dan laba-rugi selalu akurat dan seimbang.*
 
@@ -387,7 +387,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US2.3 — Kalkulasi HPP Otomatis berbasis Activity-Based Costing
 
-**Persona:** Siti (Admin) + Sistem | **Priority:** HIGHEST | **Story Points:** 5 pts | **Assignee:** Backend Dev
+**Persona:**   (Admin) + Sistem | **Priority:** HIGHEST | **Story Points:** 5 pts | **Assignee:** Backend Dev
 
 *Sebagai sistem, saya ingin menghitung Harga Pokok Produksi (HPP) secara otomatis berdasarkan biaya benih, rockwool, nutrisi, listrik greenhouse, dan overhead per batch produksi menggunakan metode Activity-Based Costing.*
 
@@ -432,7 +432,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US3.1 — Manajemen Batch Semai — Buat & Track Siklus Baru
 
-**Persona:** Agus (Pekerja) | **Priority:** HIGHEST | **Story Points:** 8 pts | **Assignee:** Backend Dev
+**Persona:**   (Pekerja) | **Priority:** HIGHEST | **Story Points:** 8 pts | **Assignee:** Backend Dev
 
 *Sebagai Pekerja, saya ingin membuat batch semai baru dengan mudah dan memilih benih serta media tanam dari inventaris yang tersedia, sehingga setiap siklus produksi tercatat akurat dari awal.*
 
@@ -462,7 +462,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US3.2 — Manajemen Fase Produksi — Pindah Fase dengan Mudah
 
-**Persona:** Agus (Pekerja) | **Priority:** HIGHEST | **Story Points:** 8 pts | **Assignee:** Frontend Dev
+**Persona:**   (Pekerja) | **Priority:** HIGHEST | **Story Points:** 8 pts | **Assignee:** Frontend Dev
 
 *Sebagai Pekerja, saya ingin mengubah fase tanaman (Semai ke Bibit ke Tanam ke Panen) dengan beberapa klik di HP sehingga saya bisa mencatat progress tanaman dari lapangan.*
 
@@ -492,7 +492,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US3.3 — Submit Harvest Report oleh Pekerja
 
-**Persona:** Agus (Pekerja) | **Priority:** HIGH | **Story Points:** 5 pts | **Assignee:** Backend Dev
+**Persona:**   (Pekerja) | **Priority:** HIGH | **Story Points:** 5 pts | **Assignee:** Backend Dev
 
 *Sebagai Pekerja, saya ingin mengirimkan laporan hasil panen dengan data berat total dan catatan lapangan agar Admin bisa mereview dan menetapkan HPP berdasarkan data aktual.*
 
@@ -536,7 +536,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US4.1 — Manajemen Stok Inventaris — Input & Tracking
 
-**Persona:** Siti (Admin) + Agus (Pekerja) | **Priority:** HIGHEST | **Story Points:** 5 pts | **Assignee:** Backend Dev
+**Persona:**   (Admin) +   (Pekerja) | **Priority:** HIGHEST | **Story Points:** 5 pts | **Assignee:** Backend Dev
 
 *Sebagai Admin/Pekerja, saya ingin menambah, mengurangi, dan menyesuaikan stok barang (Nutrisi, Media Tanam, Benih) dengan mudah agar saldo inventaris selalu akurat dan dapat dipercaya.*
 
@@ -565,7 +565,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US4.2 — Active Pack Lifecycle — Tracking Biaya Per Unit
 
-**Persona:** Agus (Pekerja) | **Priority:** HIGH | **Story Points:** 5 pts | **Assignee:** Backend Dev
+**Persona:**   (Pekerja) | **Priority:** HIGH | **Story Points:** 5 pts | **Assignee:** Backend Dev
 
 *Sebagai Pekerja, saya ingin membuka 'Active Pack' dari batch benih atau rockwool yang baru dibeli agar sistem dapat mulai menghitung biaya per unit  untuk input kalkulasi HPP.*
 
@@ -593,7 +593,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US4.3 — Alert Stok Rendah & Dashboard Summary
 
-**Persona:** Siti (Admin) | **Priority:** MEDIUM | **Story Points:** 3 pts | **Assignee:** Frontend Dev
+**Persona:**   (Admin) | **Priority:** MEDIUM | **Story Points:** 3 pts | **Assignee:** Frontend Dev
 
 **Task Breakdown:**
 
@@ -623,7 +623,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US5.1 — Manajemen Customer & Pembuatan Sales Order
 
-**Persona:** Siti (Admin) | **Priority:** HIGHEST | **Story Points:** 13 pts | **Assignee:** Backend Dev
+**Persona:**   (Admin) | **Priority:** HIGHEST | **Story Points:** 13 pts | **Assignee:** Backend Dev
 
 *Sebagai Admin, saya ingin mencatat pesanan penjualan (Sales Order) dari pelanggan dan mengelola data pelanggan agar proses penjualan terdokumentasi dengan baik dan terintegrasi dengan stok.*
 
@@ -656,7 +656,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US5.2 — Tambah Item Inventory ke Sales Order
 
-**Persona:** Siti (Admin) | **Priority:** HIGH | **Story Points:** 5 pts | **Assignee:** Backend Dev
+**Persona:**   (Admin) | **Priority:** HIGH | **Story Points:** 5 pts | **Assignee:** Backend Dev
 
 *Sebagai Admin, saya ingin memasukkan item inventaris yang akan dijual ke dalam Sales Order beserta jumlah dan harganya agar transaksi penjualan tercatat.*
 
@@ -682,7 +682,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US5.3 — Update Status Pengiriman
 
-**Persona:** Agus (Pekerja) | **Priority:** HIGH | **Story Points:** 8 pts | **Assignee:** Frontend Dev
+**Persona:**   (Pekerja) | **Priority:** HIGH | **Story Points:** 8 pts | **Assignee:** Frontend Dev
 
 *Sebagai Pekerja/Kurir, saya ingin mengupdate status pengiriman barang menjadi 'SHIPPED' dan 'DELIVERED' agar Admin dan Owner dapat memantau progress pengiriman 
 **Acceptance Criteria:**
@@ -750,7 +750,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US6.1 — Grafik Pendapatan Bulanan di Dashboard Owner
 
-**Persona:** Budi (Owner) | **Priority:** HIGH | **Story Points:** 8 pts | **Assignee:** Frontend Dev
+**Persona:**  sapik (Owner) | **Priority:** HIGH | **Story Points:** 8 pts | **Assignee:** Frontend Dev
 
 *Sebagai Owner, saya ingin melihat grafik pendapatan bulanan dibandingkan dengan pengeluaran agar saya dapat menganalisa tren bisnis dan mengambil keputusan strategis tanpa perlu membaca tabel angka.*
 
@@ -779,7 +779,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US6.2 — Pie Chart Breakdown Biaya Operasional
 
-**Persona:** Budi (Owner) | **Priority:** MEDIUM | **Story Points:** 5 pts | **Assignee:** Frontend Dev
+**Persona:**  sapik (Owner) | **Priority:** MEDIUM | **Story Points:** 5 pts | **Assignee:** Frontend Dev
 
 *Sebagai Owner, saya ingin melihat pie chart breakdown biaya operasional (listrik vs nutrisi vs gaji vs overhead) agar saya tahu komponen biaya mana yang paling besar dan perlu diefisienkan.*
 
@@ -804,7 +804,7 @@ Product Backlog adalah daftar lengkap semua fitur, perbaikan, dan pekerjaan yang
 
 #### US6.3 — Export Laporan Keuangan PDF & Excel
 
-**Persona:** Siti (Admin) + Budi (Owner) | **Priority:** HIGH | **Story Points:** 8 pts | **Assignee:** Backend Dev
+**Persona:**   (Admin) +  sapik (Owner) | **Priority:** HIGH | **Story Points:** 8 pts | **Assignee:** Backend Dev
 
 *Sebagai Admin/Owner, saya ingin men-download laporan keuangan (Jurnal, Neraca, Laba-Rugi) dalam format Excel dan PDF agar dapat disimpan secara offline, dikirim ke akuntan, atau dijadikan dokumen resmi.*
 
@@ -1151,9 +1151,9 @@ Semua endpoint menggunakan RESTful convention. Authentication menggunakan NextAu
 
 | Role | Email | Password | Akses Dashboard |
 |---|---|---|---|
-| Owner (Budi) | owner@kebunhijau.com | password123 | Financial Intelligence, Analytics, Grafik |
-| Admin (Siti) | admin@kebunhijau.com | password123 | Journal, COA, Approval, Sales |
-| Pekerja (Agus) | worker@kebunhijau.com | password123 | Produksi, Inventaris, Pengiriman |
+| Owner ( sapik) | owner@kebunhijau.com | password123 | Financial Intelligence, Analytics, Grafik |
+| Admin ( ) | admin@kebunhijau.com | password123 | Journal, COA, Approval, Sales |
+| Pekerja ( ) | worker@kebunhijau.com | password123 | Produksi, Inventaris, Pengiriman |
 
 > ⚠️ **PERINGATAN KEAMANAN:** Password demo `password123` HARUS diganti sebelum deployment ke production. Generate `NEXTAUTH_SECRET` baru dengan:
 > ```bash

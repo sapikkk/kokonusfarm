@@ -11,7 +11,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         className={cn(
           "flex h-10 w-full rounded-[11px] px-[14px] py-[10px] text-[13px] font-sans",
-          "outline-none tranadminon-all duration-150",
+          "outline-none transition-all duration-150",
           "placeholder:text-[--c-tertiary]",
           "disabled:opacity-[0.45] disabled:cursor-not-allowed",
           "file:border-0 file:bg-transparent file:text-sm file:font-medium",
@@ -23,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           color: 'var(--c-primary)',
         }}
         onFocus={(e) => {
-          e.currentTarget.style.borderColor = 'var(--bdr-poadminve)'
+          e.currentTarget.style.borderColor = 'var(--bdr-positive)'
           e.currentTarget.style.boxShadow = '0 0 0 3px rgba(159, 232, 112, 0.1)'
           props.onFocus?.(e)
         }}

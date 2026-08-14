@@ -94,7 +94,7 @@ export default function DesignDocsPage() {
               <a
                 key={s.id}
                 href={`#${s.id}`}
-                className="flex items-center gap-2 px-3 py-[7px] rounded-[10px] text-[12px] font-medium text-[--c-secondary] hover:bg-[--bg-hover] hover:text-[--c-primary] tranadminon-all"
+                className="flex items-center gap-2 px-3 py-[7px] rounded-[10px] text-[12px] font-medium text-[--c-secondary] hover:bg-[--bg-hover] hover:text-[--c-primary] transition-all"
               >
                 {s.label}
               </a>
@@ -107,16 +107,16 @@ export default function DesignDocsPage() {
       <div className="flex-1 min-w-0 max-w-[1100px] py-8 px-4 xl:px-8 flex flex-col gap-14">
         {/* Page header */}
         <div>
-          <p className="overline text-[--c-poadminve] mb-1">Sistem Antarmuka (UI)</p>
+          <p className="overline text-[--c-positive] mb-1">Sistem Antarmuka (UI)</p>
           <h1 className="text-[48px] font-black tracking-[-0.05em] italic uppercase leading-none mb-3">
-            Project <span className="text-[--c-poadminve]">SKRIPSI</span>
+            Project <span className="text-[--c-positive]">SKRIPSI</span>
           </h1>
           <p className="text-[--c-secondary] max-w-xl text-[14px]">
-            Katalog lengkap komponen UI dari referensi <code className="mono text-[--c-poadminve]">indexx.html</code>. Semua 18 section ditampilkan di sini.
+            Katalog lengkap komponen UI dari referensi <code className="mono text-[--c-positive]">indexx.html</code>. Semua 18 section ditampilkan di sini.
           </p>
           <div className="flex items-center gap-2 mt-3">
             <div className="lime-chip">
-              <span className="w-[6px] h-[6px] rounded-full bg-[--c-poadminve] inline-block" style={{ animation: "pulse 1.5s infinite" }} />
+              <span className="w-[6px] h-[6px] rounded-full bg-[--c-positive] inline-block" style={{ animation: "pulse 1.5s infinite" }} />
               Live Preview
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function DesignDocsPage() {
             <TypeRow label="Small" spec="12px / 400" className=""><TextSmall>Teks kecil untuk keterangan tambahan, meta info, atau deskripsi singkat.</TextSmall></TypeRow>
             <TypeRow label="Caption" spec="10px / 400" className=""><Caption>Caption untuk label tabel, timestamp, dan metadata komponen.</Caption></TypeRow>
             <TypeRow label="Overline" spec="9px / 700 / +18em" className=""><Overline>Section Overline Label</Overline></TypeRow>
-            <TypeRow label="Code / Mono" spec="DM Mono 13px" className=""><Code>const token = "bg-accent"; // #9FE870</Code></TypeRow>
+            <TypeRow label="Code / Mono" spec="DM Mono 13px" className=""><Code>{`const token = "bg-accent"; // #9FE870`}</Code></TypeRow>
           </div>
         </section>
 
@@ -152,7 +152,7 @@ export default function DesignDocsPage() {
             <Button variant="secondary">Secondary</Button>
             <Button variant="ghost">Ghost</Button>
             <Button variant="destructive">Danger</Button>
-            <Button variant="poadminve">Poadminve</Button>
+            <Button variant="positive">Positive</Button>
             <Button variant="notice">Notice</Button>
             <Button variant="dark">Dark / Inverse</Button>
             <Button disabled>Disabled</Button>
@@ -205,9 +205,9 @@ export default function DesignDocsPage() {
               <label className="field-label">Username</label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-[14px] h-[14px] text-[--c-tertiary] pointer-events-none" />
-                <Input className="pl-9 !border-[--bdr-poadminve]" type="text" defaultValue="sapik" />
+                <Input className="pl-9 !border-[--bdr-positive]" type="text" defaultValue="sapik" />
               </div>
-              <span className="field-hint text-poadminve">Username tersedia.</span>
+              <span className="field-hint text-positive">Username tersedia.</span>
             </div>
             <div className="field">
               <label className="field-label">Peran</label>
@@ -273,7 +273,7 @@ export default function DesignDocsPage() {
           <div className="field max-w-[440px]">
             <div className="flex justify-between text-[12px] font-semibold mb-[10px]">
               <span>Volume Notifikasi</span>
-              <span className="text-poadminve mono">{rangeVal}%</span>
+              <span className="text-positive mono">{rangeVal}%</span>
             </div>
             <Slider defaultValue={[70]} max={100} step={1} onValueChange={(val) => setRangeVal(val[0])} />
           </div>
@@ -287,7 +287,7 @@ export default function DesignDocsPage() {
           <SubLabel>Semantic Badges</SubLabel>
           <div className="flex flex-wrap gap-2 items-center mb-4">
             <Badge variant="default">Default</Badge>
-            <Badge variant="poadminve" dot>Active</Badge>
+            <Badge variant="positive" dot>Active</Badge>
             <Badge variant="negative" dot>Error</Badge>
             <Badge variant="notice" dot>Warning</Badge>
             <Badge variant="blue" dot>Info</Badge>
@@ -296,7 +296,7 @@ export default function DesignDocsPage() {
           </div>
           <SubLabel>Status Badges</SubLabel>
           <div className="flex flex-wrap gap-2 items-center mb-4">
-            <Badge variant="poadminve"><span className="w-[5px] h-[5px] rounded-full bg-[--c-poadminve] shrink-0" style={{ animation: "pulse 1.5s infinite" }} />Online</Badge>
+            <Badge variant="positive"><span className="w-[5px] h-[5px] rounded-full bg-[--c-positive] shrink-0" style={{ animation: "pulse 1.5s infinite" }} />Online</Badge>
             <Badge variant="notice" dot>Away</Badge>
             <Badge variant="default" dot>Offline</Badge>
             <Badge variant="negative" dot>Busy</Badge>
@@ -332,10 +332,10 @@ export default function DesignDocsPage() {
           <SubLabel>Content Cards</SubLabel>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {([
-              [<CheckCircle2 key="1" className="w-5 h-5 text-[--c-poadminve]" />, "poadminve", "Laporan Bulanan", "Ringkasan performa bisnis bulan ini termasuk pendapatan dan margin laba bersih.", "Selesai", "Jul 2025"],
+              [<CheckCircle2 key="1" className="w-5 h-5 text-[--c-positive]" />, "positive", "Laporan Bulanan", "Ringkasan performa bisnis bulan ini termasuk pendapatan dan margin laba bersih.", "Selesai", "Jul 2025"],
               [<Info key="2" className="w-5 h-5 text-[--c-blue]" />, "blue", "Onboarding Pengguna", "Panduan langkah demi langkah untuk memperkenalkan fitur platform kepada pengguna baru.", "Aktif", ""],
               [<AlertTriangle key="3" className="w-5 h-5 text-[--c-notice]" />, "notice", "Pembaruan Sistem", "Dijadwalkan pembaruan infrastruktur pada tanggal 15 Juli 2025 pukul 02.00 WIB.", "Terjadwal", "15 Jul 02:00"],
-            ] as [React.ReactNode, "poadminve" | "negative" | "notice" | "blue" | "default", string, string, string, string][]).map(([icon, iconBg, title, body, status, meta]) => (
+            ] as [React.ReactNode, "positive" | "negative" | "notice" | "blue" | "default", string, string, string, string][]).map(([icon, iconBg, title, body, status, meta]) => (
               <ContentCard key={title} icon={icon} iconBg={iconBg} title={title} body={body} status={status} meta={meta} />
             ))}
           </div>
@@ -347,7 +347,7 @@ export default function DesignDocsPage() {
         <section id="s06">
           <SectionHeader num="06" title="Alerts" />
           <div className="flex flex-col gap-[10px]">
-            <Alert variant="poadminve">
+            <Alert variant="positive">
               <CheckCircle2 className="h-4 w-4" />
               <AlertTitle>Berhasil Disimpan</AlertTitle>
               <AlertDescription>Data profil Anda telah berhasil diperbarui dan disimpan ke server.</AlertDescription>
@@ -404,9 +404,9 @@ export default function DesignDocsPage() {
               </TableHeader>
               <TableBody>
                 {([
-                  ["#TRX-0048", "Ahmad Reza", "ahmad@mail.com", "green", "AR", "Premium Plan", "12 bulan", "Rp 1.200.000", "Lunas", "poadminve", "12 Jul 2025"],
+                  ["#TRX-0048", "Ahmad Reza", "ahmad@mail.com", "green", "AR", "Premium Plan", "12 bulan", "Rp 1.200.000", "Lunas", "positive", "12 Jul 2025"],
                   ["#TRX-0047", "admin Wahyu", "admin@mail.com", "blue", "SW", "Basic Plan", "1 bulan", "Rp 150.000", "Pending", "notice", "11 Jul 2025"],
-                  ["#TRX-0046", "sapik Pratama", "sapik@mail.com", "notice", "BP", "Enterprise", "6 bulan", "Rp 4.800.000", "Lunas", "poadminve", "10 Jul 2025"],
+                  ["#TRX-0046", "sapik Pratama", "sapik@mail.com", "notice", "BP", "Enterprise", "6 bulan", "Rp 4.800.000", "Lunas", "positive", "10 Jul 2025"],
                   ["#TRX-0045", "Nia Rahayu", "nia@mail.com", "red", "NR", "Basic Plan", "3 bulan", "Rp 420.000", "Gagal", "negative", "09 Jul 2025"],
                   ["#TRX-0044", "Farhan Hasan", "farhan@mail.com", "neutral", "FH", "Premium Plan", "3 bulan", "Rp 330.000", "Refund", "blue", "08 Jul 2025"],
                 ] as string[][]).map(([id, name, email, color, init, prod, dur, amt, status, statusVar, date]) => (
@@ -451,8 +451,8 @@ export default function DesignDocsPage() {
               <SubLabel>Linear Progress</SubLabel>
               <div className="space-y-4">
                 <div>
-                  <div className="flex justify-between mb-2 text-[12px] font-semibold"><span>Pengiriman</span><span className="text-poadminve">72%</span></div>
-                  <Progress value={72} variant="poadminve" />
+                  <div className="flex justify-between mb-2 text-[12px] font-semibold"><span>Pengiriman</span><span className="text-positive">72%</span></div>
+                  <Progress value={72} variant="positive" />
                 </div>
                 <div>
                   <div className="flex justify-between mb-2 text-[12px] font-semibold"><span>Error Rate</span><span className="text-negative">28%</span></div>
@@ -571,7 +571,7 @@ export default function DesignDocsPage() {
             </TabsList>
             <TabsContent value="overview"><div className="alert-blue p-4 rounded-[14px] flex gap-3 text-[13px]"><span className="text-[18px]"></span><div><div className="font-bold mb-[3px]">Tab Overview Aktif</div><div className="text-[12px] leading-[1.6]">Konten tab Overview ditampilkan di sini.</div></div></div></TabsContent>
             <TabsContent value="analitik"><div className="bg-[--s-l2] border border-[--border-ui] text-[--c-secondary] p-4 rounded-[14px] flex gap-3 text-[13px]"><span className="text-[18px]"></span><div><div className="font-bold mb-[3px]">Tab Analitik</div><div className="text-[12px]">Konten halaman analitik dan visualisasi data.</div></div></div></TabsContent>
-            <TabsContent value="laporan"><div className="alert-poadminve p-4 rounded-[14px] flex gap-3 text-[13px]"><span className="text-[18px]"></span><div><div className="font-bold mb-[3px]">Tab Laporan</div><div className="text-[12px]">Ekspor dan unduh laporan dalam berbagai format.</div></div></div></TabsContent>
+            <TabsContent value="laporan"><div className="alert-positive p-4 rounded-[14px] flex gap-3 text-[13px]"><span className="text-[18px]"></span><div><div className="font-bold mb-[3px]">Tab Laporan</div><div className="text-[12px]">Ekspor dan unduh laporan dalam berbagai format.</div></div></div></TabsContent>
             <TabsContent value="settings"><div className="alert-notice p-4 rounded-[14px] flex gap-3 text-[13px]"><span className="text-[18px]"></span><div><div className="font-bold mb-[3px]">Tab Pengaturan</div><div className="text-[12px]">Konfigurasi preferensi dan parameter sistem.</div></div></div></TabsContent>
           </Tabs>
 
@@ -661,7 +661,7 @@ export default function DesignDocsPage() {
           <SectionHeader num="13" title="Toast & Notifications" />
           <SubLabel>Preview Statis</SubLabel>
           <ToastStack className="max-w-[380px] static transform-none opacity-100 flex-col pointer-events-auto">
-            <Toast variant="poadminve" onDismiss={() => { }}>
+            <Toast variant="positive" onDismiss={() => { }}>
               <ToastBody>
                 <ToastTitle>Berhasil Disimpan</ToastTitle>
                 <ToastMessage>Perubahan Anda telah disimpan.</ToastMessage>
@@ -751,12 +751,12 @@ export default function DesignDocsPage() {
               </Tooltip>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="w-9 h-9 rounded-[10px] border border-[--border-ui] bg-[--s-l2] flex items-center justify-center text-[--c-secondary] cursor-pointer hover:bg-[--bg-hover] tranadminon-colors"><Info className="w-[15px] h-[15px]" /></div>
+                  <div className="w-9 h-9 rounded-[10px] border border-[--border-ui] bg-[--s-l2] flex items-center justify-center text-[--c-secondary] cursor-pointer hover:bg-[--bg-hover] transition-colors"><Info className="w-[15px] h-[15px]" /></div>
                 </TooltipTrigger>
                 <TooltipContent>Informasi lebih lanjut</TooltipContent>
               </Tooltip>
               <Tooltip>
-                <TooltipTrigger asChild><Badge variant="poadminve" className="cursor-default">Active</Badge></TooltipTrigger>
+                <TooltipTrigger asChild><Badge variant="positive" className="cursor-default">Active</Badge></TooltipTrigger>
                 <TooltipContent>Akun aktif sejak 12 Jan 2025</TooltipContent>
               </Tooltip>
             </div>
@@ -773,7 +773,7 @@ export default function DesignDocsPage() {
             <div className="stat-card">
               <div className="flex justify-between items-start mb-4">
                 <div><div className="overline">Pendapatan Mingguan</div><div className="text-[22px] font-bold tracking-[-0.03em] mt-1">Rp 8.4M</div></div>
-                <span className="inline-flex items-center gap-1 text-[11px] font-bold px-[9px] py-[3px] rounded-[50px] bg-[--bg-poadminve-subtle] text-[--c-poadminve]">▲ 14.2%</span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-bold px-[9px] py-[3px] rounded-[50px] bg-[--bg-positive-subtle] text-[--c-positive]">▲ 14.2%</span>
               </div>
               <BarChart values={barValues} labels={barDays} highlightIndex={5} height={80} />
             </div>
@@ -826,11 +826,11 @@ export default function DesignDocsPage() {
               <SubLabel>Transaksi Terbaru</SubLabel>
               <ListCard>
                 {([
-                  ["green", "AR", "Ahmad Reza", "Premium Plan · 12 bulan", "+Rp 1.2M", "poadminve", "12:34"],
+                  ["green", "AR", "Ahmad Reza", "Premium Plan · 12 bulan", "+Rp 1.2M", "positive", "12:34"],
                   ["blue", "SW", "admin Wahyu", "Basic Plan · 1 bulan", "+Rp 150K", "notice", "11:20"],
                   ["red", "NR", "Nia Rahayu", "Refund Request", "−Rp 420K", "negative", "09:15"],
-                  ["notice", "BP", "sapik Pratama", "Enterprise · 6 bulan", "+Rp 4.8M", "poadminve", "08:02"],
-                ] as [string, string, string, string, string, "poadminve" | "negative" | "notice" | "default", string][]).map(([color, init, name, sub, amt, amtVar, time]) => (
+                  ["notice", "BP", "sapik Pratama", "Enterprise · 6 bulan", "+Rp 4.8M", "positive", "08:02"],
+                ] as [string, string, string, string, string, "positive" | "negative" | "notice" | "default", string][]).map(([color, init, name, sub, amt, amtVar, time]) => (
                   <ListItem key={name}>
                     <Avatar size="sm" colorVariant={color as any}><AvatarFallback>{init}</AvatarFallback></Avatar>
                     <ListItemContent><ListItemTitle>{name}</ListItemTitle><ListItemSub>{sub}</ListItemSub></ListItemContent>
@@ -844,8 +844,8 @@ export default function DesignDocsPage() {
               <ListCard>
                 {([
                   [<AlertTriangle key="1" className="w-[18px] h-[18px] text-[--c-notice]" />, "Pembaruan Sistem", "Server akan maintenance 15 Jul 02.00 WIB", "notice", "Baru", "2 jam lalu"],
-                  [<CheckCircle2 key="2" className="w-[18px] h-[18px] text-[--c-poadminve]" />, "Export Selesai", "Laporan Q2-2025.pdf siap diunduh", "", "", "5 jam lalu"],
-                  [<User key="3" className="w-[18px] h-[18px] text-[--c-blue]" />, "Pengguna Baru", "Farhan Hasan mendaftar via referral", "poadminve", "Baru", "1 hari lalu"],
+                  [<CheckCircle2 key="2" className="w-[18px] h-[18px] text-[--c-positive]" />, "Export Selesai", "Laporan Q2-2025.pdf siap diunduh", "", "", "5 jam lalu"],
+                  [<User key="3" className="w-[18px] h-[18px] text-[--c-blue]" />, "Pengguna Baru", "Farhan Hasan mendaftar via referral", "positive", "Baru", "1 hari lalu"],
                   [<AlertCircle key="4" className="w-[18px] h-[18px] text-[--c-negative]" />, "Pembayaran Gagal", "Transaksi #TRX-0045 perlu ditinjau", "negative", "Urgent", "1 hari lalu"],
                 ] as [React.ReactNode, string, string, string, string, string][]).map(([icon, title, sub, badgeVar, badgeTxt, time]) => (
                   <ListItem key={title}>

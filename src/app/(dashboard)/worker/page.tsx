@@ -165,7 +165,7 @@ export default async function WorkerDashboard() {
               data.activeCycles.map((cycle) => (
                 <div
                   key={cycle.id}
-                  className="flex items-center justify-between p-4 rounded-lg border hover:bg-accent tranadminon-colors"
+                  className="flex items-center justify-between p-4 rounded-lg border hover:bg-accent transition-colors"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">

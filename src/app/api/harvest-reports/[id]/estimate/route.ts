@@ -82,7 +82,7 @@ export async function GET(
     // ── FALLBACK: jika Layer 1 kosong, estimasi dari inventory ──────────────
     if (costSeed === 0) {
       let seedItem = await prisma.inventoryItem.findFirst({
-        where: { category: "BENIH", name: { contains: plantType, mode: "insenadminve" } },
+        where: { category: "BENIH", name: { contains: plantType, mode: "insensitive" } },
       })
       if (!seedItem) {
         seedItem = await prisma.inventoryItem.findFirst({ where: { category: "BENIH" } })
@@ -97,7 +97,7 @@ export async function GET(
 
     if (costMedia === 0) {
       const mediaItem = await prisma.inventoryItem.findFirst({
-        where: { category: "MEDIA", name: { contains: "Rockwool", mode: "insenadminve" } },
+        where: { category: "MEDIA", name: { contains: "Rockwool", mode: "insensitive" } },
       })
       if (mediaItem && Number(mediaItem.unitPrice) > 0) {
         costMedia = Math.round((Number(mediaItem.unitPrice) / 720) * initialQuantity)

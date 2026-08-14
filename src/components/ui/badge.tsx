@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center gap-[5px] rounded-[50px] border px-[11px] py-1 text-[10px] font-bold tracking-[0.04em] tranadminon-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center gap-[5px] rounded-[50px] border px-[11px] py-1 text-[10px] font-bold tracking-[0.04em] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   {
     variants: {
       variant: {
@@ -11,10 +11,10 @@ const badgeVariants = cva(
           "border-[--border-ui] bg-[--s-l3] text-[--c-secondary]",
         secondary:
           "border-[--border-ui] bg-[--s-l3] text-[--c-secondary]",
-        poadminve:
-          "border-[--bdr-poadminve] bg-[--bg-poadminve-subtle] text-[--c-poadminve]",
+        positive:
+          "border-[--bdr-positive] bg-[--bg-positive-subtle] text-[--c-positive]",
         success:
-          "border-[--bdr-poadminve] bg-[--bg-poadminve-subtle] text-[--c-poadminve]",
+          "border-[--bdr-positive] bg-[--bg-positive-subtle] text-[--c-positive]",
         destructive:
           "border-[--bdr-negative] bg-[--bg-negative-subtle] text-[--c-negative]",
         negative:
@@ -31,7 +31,7 @@ const badgeVariants = cva(
           "border-[--bdr-secondary] bg-transparent text-[--c-primary]",
         // Legacy aliases
         botanical:
-          "border-[--bdr-poadminve] bg-[--bg-poadminve-subtle] text-[--c-poadminve]",
+          "border-[--bdr-positive] bg-[--bg-positive-subtle] text-[--c-positive]",
         forest:
           "border-transparent bg-[#062F28] text-white",
       },
@@ -52,9 +52,9 @@ function Badge({ className, variant, dot, children, ...props }: BadgeProps) {
   // Map variant to SKRIPSI dot color if applicable
   const getDotColor = (v: string | null | undefined) => {
     switch (v) {
-      case 'poadminve':
+      case 'positive':
       case 'success':
-      case 'botanical': return 'var(--c-poadminve)';
+      case 'botanical': return 'var(--c-positive)';
       case 'destructive':
       case 'negative': return 'var(--c-negative)';
       case 'notice':

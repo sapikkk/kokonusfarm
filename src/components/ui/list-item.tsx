@@ -65,7 +65,7 @@ ListItemRight.displayName = "ListItemRight"
    ListItemAmount — numeric value (colored)
 ────────────────────────────────────────────── */
 interface ListItemAmountProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "poadminve" | "negative" | "notice" | "default"
+  variant?: "positive" | "negative" | "notice" | "default"
 }
 const ListItemAmount = React.forwardRef<HTMLDivElement, ListItemAmountProps>(
   ({ className, variant = "default", ...props }, ref) => (
@@ -73,7 +73,7 @@ const ListItemAmount = React.forwardRef<HTMLDivElement, ListItemAmountProps>(
       ref={ref}
       className={cn(
         "li-amount",
-        variant === "poadminve" && "text-poadminve",
+        variant === "positive" && "text-positive",
         variant === "negative" && "text-negative",
         variant === "notice" && "text-notice",
         className

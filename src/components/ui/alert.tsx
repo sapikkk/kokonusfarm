@@ -7,8 +7,8 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        poadminve:
-          "bg-[--bg-poadminve-subtle] border-[--bdr-poadminve] text-[--c-poadminve]",
+        positive:
+          "bg-[--bg-positive-subtle] border-[--bdr-positive] text-[--c-positive]",
         negative:
           "bg-[--bg-negative-subtle] border-[--bdr-negative] text-[--c-negative]",
         notice:
@@ -42,7 +42,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
       <div className="flex-1 min-w-0">{children}</div>
       {onDismiss && (
         <button
-          className="shrink-0 bg-transparent border-none cursor-pointer opacity-50 text-[14px] hover:opacity-100 tranadminon-opacity self-start p-0"
+          className="shrink-0 bg-transparent border-none cursor-pointer opacity-50 text-[14px] hover:opacity-100 transition-opacity self-start p-0"
           style={{ color: "inherit" }}
           onClick={onDismiss}
         >

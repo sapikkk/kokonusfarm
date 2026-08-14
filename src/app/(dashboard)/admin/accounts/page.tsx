@@ -42,8 +42,8 @@ const typeLabels: Record<string, string> = {
   EXPENSE: "Beban",
 }
 
-const typeBadgeVariants: Record<string, "poadminve" | "negative" | "default" | "blue" | "notice"> = {
-  ASSET: "poadminve",
+const typeBadgeVariants: Record<string, "positive" | "negative" | "default" | "blue" | "notice"> = {
+  ASSET: "positive",
   LIABILITY: "negative",
   EQUITY: "default",
   REVENUE: "blue",
@@ -120,7 +120,7 @@ export default async function AdminAccountsPage() {
                           {account.description || "-"}
                         </TableCell>
                         <TableCell>
-                          <Badge variant={account.isActive ? "poadminve" : "default"} dot>
+                          <Badge variant={account.isActive ? "positive" : "default"} dot>
                             {account.isActive ? "Aktif" : "Nonaktif"}
                           </Badge>
                         </TableCell>

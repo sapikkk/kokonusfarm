@@ -9,7 +9,7 @@ interface StatCardProps {
   icon: LucideIcon
   trend?: {
     value: number
-    isPoadminve: boolean
+    isPositive: boolean
   }
   className?: string
   glass?: boolean
@@ -38,11 +38,11 @@ export function StatCard({
                 <span
                   className="text-xs font-semibold px-1.5 py-0.5 rounded-full"
                   style={{
-                    background: trend.isPoadminve ? 'rgba(159,232,112,0.2)' : 'rgba(239,68,68,0.1)',
-                    color: trend.isPoadminve ? '#2a7015' : '#dc2626'
+                    background: trend.isPositive ? 'rgba(159,232,112,0.2)' : 'rgba(239,68,68,0.1)',
+                    color: trend.isPositive ? '#2a7015' : '#dc2626'
                   }}
                 >
-                  {trend.isPoadminve ? "+" : ""}{trend.value}%
+                  {trend.isPositive ? "+" : ""}{trend.value}%
                 </span>
               )}
             </div>

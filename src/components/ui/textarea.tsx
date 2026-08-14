@@ -10,7 +10,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       <textarea
         className={cn(
           "flex min-h-[100px] w-full rounded-[11px] px-[14px] py-[10px] text-[13px] font-sans",
-          "outline-none tranadminon-all duration-150 resize-y",
+          "outline-none transition-all duration-150 resize-y",
           "placeholder:text-[--c-tertiary]",
           "disabled:opacity-[0.45] disabled:cursor-not-allowed",
           className
@@ -21,7 +21,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           color: 'var(--c-primary)',
         }}
         onFocus={(e) => {
-          e.currentTarget.style.borderColor = 'var(--bdr-poadminve)'
+          e.currentTarget.style.borderColor = 'var(--bdr-positive)'
           e.currentTarget.style.boxShadow = '0 0 0 3px rgba(159, 232, 112, 0.1)'
           props.onFocus?.(e)
         }}

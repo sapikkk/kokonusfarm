@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -22,12 +23,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Plus, Loader2 } from "lucide-react"
+import { Plus, Loader2, Sparkles, Check, AlertCircle } from "lucide-react"
+
+interface CategoryOption {
+  id: string
+  name: string
+  code: string
+}
 
 export function NewItemDialog() {
   const router = useRouter()
+  const { data: session } = useSession()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [categories, setCategories] = useState<CategoryOption[]>([])
+  const [categoriesLoading, setCategoriesLoading] = useState(false)
+
+  // Custom Category Mode states
+  const [showAddCategory, setShowAddCategory] = useState(false)
+  const [newCategoryName, setNewCategoryName] = useState("")
+  const [categorySubmitLoading, setCategorySubmitLoading] = useState(false)
+  const [categoryStatusMsg, setCategoryStatusMsg] = useState<{
+    text: string
+    type: "success" | "info" | "error"
+  } | null>(null)
 
   const [formData, setFormData] = useState({
     code: "",
@@ -39,6 +58,84 @@ export function NewItemDialog() {
     unitPrice: "0",
     description: "",
   })
+
+  const loadCategories = useCallback(async () => {
+    setCategoriesLoading(true)
+    try {
+      const res = await fetch("/api/inventory/categories")
+      if (res.ok) {
+        const data = await res.json()
+        setCategories(data)
+        // Set default category if available and not set
+        if (data.length > 0 && !formData.category) {
+          setFormData(prev => ({ ...prev, category: data[0].code }))
+        }
+      }
+    } catch (error) {
+      console.error("Gagal memuat kategori:", error)
+    } finally {
+      setCategoriesLoading(false)
+    }
+  }, [formData.category])
+
+  useEffect(() => {
+    if (open) {
+      loadCategories()
+      setShowAddCategory(false)
+      setNewCategoryName("")
+      setCategoryStatusMsg(null)
+    }
+  }, [open, loadCategories])
+
+  async function handleAddCategory() {
+    if (!newCategoryName.trim()) return
+
+    setCategorySubmitLoading(true)
+    setCategoryStatusMsg(null)
+    try {
+      const res = await fetch("/api/inventory/categories", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: newCategoryName })
+      })
+
+      const data = await res.json()
+      if (res.ok) {
+        if (data.approved) {
+          setCategoryStatusMsg({
+            text: `Kategori "${newCategoryName}" berhasil ditambahkan!`,
+            type: "success"
+          })
+          // Reload categories and select the newly created one
+          const customCode = newCategoryName.trim().toUpperCase().replace(/\s+/g, "_")
+          setFormData(prev => ({ ...prev, category: customCode }))
+          await loadCategories()
+          setNewCategoryName("")
+          setShowAddCategory(false)
+        } else {
+          setCategoryStatusMsg({
+            text: "Pengajuan kategori berhasil dikirim & menunggu persetujuan Owner/Admin.",
+            type: "info"
+          })
+          setNewCategoryName("")
+          setShowAddCategory(false)
+        }
+      } else {
+        setCategoryStatusMsg({
+          text: data.error || "Gagal memproses kategori kustom",
+          type: "error"
+        })
+      }
+    } catch (error) {
+      console.error(error)
+      setCategoryStatusMsg({
+        text: "Terjadi kesalahan koneksi",
+        type: "error"
+      })
+    } finally {
+      setCategorySubmitLoading(false)
+    }
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -64,6 +161,8 @@ export function NewItemDialog() {
       setLoading(false)
     }
   }
+
+  const userRole = session?.user?.role || "PEKERJA"
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -94,23 +193,94 @@ export function NewItemDialog() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="category">Kategori</Label>
-              <Select
-                value={formData.category}
-                onValueChange={(val) => setFormData({ ...formData, category: val })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Pilih Kategori" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="NUTRISI">Nutrisi</SelectItem>
-                  <SelectItem value="MEDIA">Media Tanam</SelectItem>
-                  <SelectItem value="BENIH">Benih</SelectItem>
-                  <SelectItem value="KEMASAN">Kemasan</SelectItem>
-                  <SelectItem value="ALAT">Alat</SelectItem>
-                  <SelectItem value="LAINNYA">Lain-lain</SelectItem>
-                </SelectContent>
-              </Select>
+              {categoriesLoading ? (
+                <div className="h-10 rounded-md border border-input bg-background px-3 py-2 flex items-center">
+                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground mr-2" />
+                  <span className="text-sm text-muted-foreground">Memuat...</span>
+                </div>
+              ) : (
+                <Select
+                  value={formData.category}
+                  onValueChange={(val) => setFormData({ ...formData, category: val })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Pilih Kategori" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((cat) => (
+                      <SelectItem key={cat.id || cat.code} value={cat.code}>
+                        {cat.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
             </div>
+          </div>
+
+          {/* Custom Category Section */}
+          <div className="border-t border-b py-3 my-2 border-slate-100 dark:border-slate-800 space-y-2">
+            {!showAddCategory ? (
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="w-full text-xs flex items-center justify-center gap-1.5 text-botanical-600 dark:text-botanical-400 hover:text-botanical-700 dark:hover:text-botanical-300"
+                onClick={() => setShowAddCategory(true)}
+              >
+                <Sparkles className="h-3 w.5-3.5" />
+                {userRole === "OWNER" || userRole === "ADMIN" 
+                  ? "+ Tambah Kategori Kustom Baru" 
+                  : "+ Ajukan Kategori Kustom Baru"}
+              </Button>
+            ) : (
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Nama Kategori Baru</Label>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Ex: Pupuk Organik"
+                    value={newCategoryName}
+                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    className="h-8 text-sm"
+                  />
+                  <Button
+                    type="button"
+                    size="sm"
+                    className="h-8 bg-botanical-600 hover:bg-botanical-700"
+                    disabled={categorySubmitLoading}
+                    onClick={handleAddCategory}
+                  >
+                    {categorySubmitLoading ? <Loader2 className="h-3 w-3 animate-spin" /> : "Kirim"}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 text-xs text-muted-foreground"
+                    onClick={() => setShowAddCategory(false)}
+                  >
+                    Batal
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {categoryStatusMsg && (
+              <div className={`text-xs p-2 rounded flex items-start gap-1.5 ${
+                categoryStatusMsg.type === "success" 
+                  ? "bg-emerald-50 text-emerald-800 dark:bg-emerald-950/20 dark:text-emerald-300 border border-emerald-200" 
+                  : categoryStatusMsg.type === "info"
+                  ? "bg-blue-50 text-blue-800 dark:bg-blue-950/20 dark:text-blue-300 border border-blue-200"
+                  : "bg-red-50 text-red-800 dark:bg-red-950/20 dark:text-red-300 border border-red-200"
+              }`}>
+                {categoryStatusMsg.type === "success" ? (
+                  <Check className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                ) : (
+                  <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                )}
+                <span>{categoryStatusMsg.text}</span>
+              </div>
+            )}
           </div>
 
           <div className="space-y-2">

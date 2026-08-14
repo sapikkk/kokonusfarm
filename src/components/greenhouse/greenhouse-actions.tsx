@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTranadminon } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Plus, Settings2, Loader2, Zap } from "lucide-react";
-import { createGreenhouse, updateGreenhouse } from "./actions";
+import { createGreenhouse, updateGreenhouse, deleteGreenhouse } from "./actions";
 
 type GreenhouseData = {
   id: string;
@@ -34,7 +34,7 @@ type Props =
 
 export function GreenhouseActions(props: Props) {
   const [open, setOpen] = useState(false);
-  const [isPending, startTranadminon] = useTranadminon();
+  const [isPending, startTransition] = useTransition();
 
   const isEdit = props.mode === "edit";
   const gh = isEdit ? props.greenhouse : null;
@@ -63,7 +63,7 @@ export function GreenhouseActions(props: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    startTranadminon(async () => {
+    startTransition(async () => {
       const payload = {
         code,
         name,
@@ -73,10 +73,28 @@ export function GreenhouseActions(props: Props) {
         electricityNotes: elecNotes || undefined,
         isActive,
       };
-      if (isEdit && gh) {
-        await updateGreenhouse(gh.id, payload);
-      } else {
-        await createGreenhouse(payload);
+      const res = isEdit && gh
+        ? await updateGreenhouse(gh.id, payload)
+        : await createGreenhouse(payload);
+      
+      if (res && !res.success) {
+        alert(res.error);
+        return;
+      }
+      setOpen(false);
+    });
+  }
+
+  function handleDelete() {
+    if (!gh) return;
+    const ok = confirm(`Apakah Anda yakin ingin menghapus greenhouse "${gh.name}"? Tindakan ini tidak dapat dibatalkan.`);
+    if (!ok) return;
+
+    startTransition(async () => {
+      const res = await deleteGreenhouse(gh.id);
+      if (res && !res.success) {
+        alert(res.error);
+        return;
       }
       setOpen(false);
     });
@@ -189,14 +207,27 @@ export function GreenhouseActions(props: Props) {
             </div>
           )}
 
-          <DialogFooter>
-            <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
-              Batal
-            </Button>
-            <Button type="submit" disabled={isPending}>
-              {isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              {isEdit ? "Simpan Perubahan" : "Buat Greenhouse"}
-            </Button>
+          <DialogFooter className="flex flex-col sm:flex-row sm:justify-between items-stretch sm:items-center gap-2 w-full">
+            {isEdit && (
+              <Button
+                type="button"
+                variant="destructive"
+                onClick={handleDelete}
+                disabled={isPending}
+                className="sm:mr-auto"
+              >
+                Hapus
+              </Button>
+            )}
+            <div className="flex gap-2 justify-end sm:ml-auto">
+              <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
+                Batal
+              </Button>
+              <Button type="submit" disabled={isPending}>
+                {isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+                {isEdit ? "Simpan Perubahan" : "Buat Greenhouse"}
+              </Button>
+            </div>
           </DialogFooter>
         </form>
       </DialogContent>

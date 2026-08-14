@@ -14,10 +14,10 @@ const Checkbox = React.forwardRef<
       "peer h-[18px] w-[18px] shrink-0 rounded-[5px]",
       "border-[1.5px] border-[--bdr-secondary] bg-[--s-l2]",
       "flex items-center justify-center",
-      "tranadminon-all duration-150",
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--bdr-poadminve] focus-visible:ring-offset-2",
+      "transition-all duration-150",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--bdr-positive] focus-visible:ring-offset-2",
       "disabled:cursor-not-allowed disabled:opacity-50",
-      "data-[state=checked]:bg-[--bg-accent] data-[state=checked]:border-[--bdr-poadminve]",
+      "data-[state=checked]:bg-[--bg-accent] data-[state=checked]:border-[--bdr-positive]",
       className
     )}
     {...props}

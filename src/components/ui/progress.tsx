@@ -7,17 +7,17 @@ import { cn } from "@/lib/utils";
 
 interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: number;
-  variant?: "poadminve" | "negative" | "notice" | "blue" | "gradient";
+  variant?: "positive" | "negative" | "notice" | "blue" | "gradient";
   size?: "thin" | "default" | "thick";
 }
 
 const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
   (
-    { className, value = 0, variant = "poadminve", size = "default", ...props },
+    { className, value = 0, variant = "positive", size = "default", ...props },
     ref,
   ) => {
     const fillClass = {
-      poadminve: "prog-poadminve",
+      positive: "prog-positive",
       negative: "prog-negative",
       notice: "prog-notice",
       blue: "prog-blue",

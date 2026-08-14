@@ -42,7 +42,7 @@ const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
           {values.map((v, i) => (
             <div
               key={i}
-              className="flex-1 cursor-pointer tranadminon-opacity hover:!opacity-100 rounded-t"
+              className="flex-1 cursor-pointer transition-opacity hover:!opacity-100 rounded-t"
               style={{
                 height: `${(v / max) * 100}%`,
                 background: i === highlightIndex ? highlightColor : barColor,

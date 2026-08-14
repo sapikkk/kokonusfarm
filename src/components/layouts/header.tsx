@@ -34,7 +34,7 @@ export function Header({ userName, userRole }: HeaderProps) {
       "sticky top-0 z-40 flex h-14 items-center gap-4 px-[22px] lg:h-[64px]",
       "bg-[--s-l0]",
       "border-b border-[--border-ui]",
-      "tranadminon-colors"
+      "transition-colors"
     ].join(" ")}
     >
       {/* Welcome text */}
@@ -55,9 +55,9 @@ export function Header({ userName, userRole }: HeaderProps) {
           aria-label="Toggle theme"
         >
           {/* Sun — visible in light mode */}
-          <Sun className="h-[18px] w-[18px] rotate-0 scale-100 tranadminon-all dark:-rotate-90 dark:scale-0" />
+          <Sun className="h-[18px] w-[18px] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           {/* Moon — visible in dark mode */}
-          <Moon className="absolute h-[18px] w-[18px] rotate-90 scale-0 tranadminon-all dark:rotate-0 dark:scale-100 text-[--c-poadminve]" />
+          <Moon className="absolute h-[18px] w-[18px] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-[--c-positive]" />
         </Button>
 
         {/* Notification Bell */}
@@ -75,7 +75,7 @@ export function Header({ userName, userRole }: HeaderProps) {
         {/* User avatar + dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-3 rounded-[50px] p-1 pr-4 tranadminon-all hover:bg-[--bg-hover] outline-none border border-transparent focus-visible:border-[--border-ui]">
+            <button className="flex items-center gap-3 rounded-[50px] p-1 pr-4 transition-all hover:bg-[--bg-hover] outline-none border border-transparent focus-visible:border-[--border-ui]">
               <Avatar size="sm" colorVariant="green">
                 <AvatarFallback>{initials}</AvatarFallback>
               </Avatar>
@@ -83,7 +83,7 @@ export function Header({ userName, userRole }: HeaderProps) {
                 <span className="text-[13px] font-bold text-[--c-primary] leading-none mb-1">
                   {userName}
                 </span>
-                <span className="overline text-[--c-poadminve]">
+                <span className="overline text-[--c-positive]">
                   {getRoleLabel(userRole)}
                 </span>
               </div>

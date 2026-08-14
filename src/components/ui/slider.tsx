@@ -24,9 +24,9 @@ const Slider = React.forwardRef<
         "block h-[18px] w-[18px] rounded-full",
         "bg-[--bg-accent] border-2 border-[--c-inverse]",
         "",
-        "tranadminon-transform duration-150",
+        "transition-transform duration-150",
         "hover:scale-[1.2]",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--bdr-poadminve]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[--bdr-positive]",
         "disabled:pointer-events-none disabled:opacity-50"
       )}
     />

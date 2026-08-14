@@ -168,7 +168,7 @@ export default async function ProductionReportsPage() {
               {reports.map((report) => (
                 <div
                   key={report.id}
-                  className="flex items-center justify-between p-3 rounded-lg bg-card border border-black/[0.06] dark:border-white/[0.06] tranadminon-all"
+                  className="flex items-center justify-between p-3 rounded-lg bg-card border border-black/[0.06] dark:border-white/[0.06] transition-all"
                 >
                   <div className="flex items-center gap-3">
                     <div className="hidden sm:block">

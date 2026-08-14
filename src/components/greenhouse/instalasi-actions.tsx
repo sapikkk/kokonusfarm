@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTranadminon } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -52,7 +52,7 @@ const TYPES: { value: InstallationType; label: string }[] = [
 
 export function InstalasiActions(props: Props) {
   const [open, setOpen] = useState(false);
-  const [isPending, startTranadminon] = useTranadminon();
+  const [isPending, startTransition] = useTransition();
 
   const isEdit = props.mode === "edit";
   const inst = isEdit ? props.instalasi : null;
@@ -79,7 +79,7 @@ export function InstalasiActions(props: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    startTranadminon(async () => {
+    startTransition(async () => {
       const payload = {
         code,
         name,
@@ -90,10 +90,13 @@ export function InstalasiActions(props: Props) {
         nutrientNotes: nutrientNotes || undefined,
         isActive,
       };
-      if (isEdit && inst) {
-        await updateInstallation(inst.id, payload);
-      } else {
-        await createInstallation(payload);
+      const res = isEdit && inst
+        ? await updateInstallation(inst.id, payload)
+        : await createInstallation(payload);
+      
+      if (res && !res.success) {
+        alert(res.error);
+        return;
       }
       setOpen(false);
     });

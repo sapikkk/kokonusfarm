@@ -29,7 +29,7 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-[7px] px-4 py-1.5 text-[13px] font-bold ring-offset-background tranadminon-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-[0.45] data-[state=active]:bg-[--s-l1] data-[state=active]:text-[--c-primary]",
+      "inline-flex items-center justify-center whitespace-nowrap rounded-[7px] px-4 py-1.5 text-[13px] font-bold ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-[0.45] data-[state=active]:bg-[--s-l1] data-[state=active]:text-[--c-primary]",
       className
     )}
     {...props}
@@ -74,7 +74,7 @@ const TabsTriggerUnderline = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "relative -mb-px flex items-center justify-center whitespace-nowrap px-4 py-2 text-[13px] font-bold text-[--c-secondary] tranadminon-all hover:text-[--c-primary] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-[--c-primary] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:h-[2px] data-[state=active]:after:w-full data-[state=active]:after:bg-[--c-poadminve]",
+      "relative -mb-px flex items-center justify-center whitespace-nowrap px-4 py-2 text-[13px] font-bold text-[--c-secondary] transition-all hover:text-[--c-primary] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-[--c-primary] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:h-[2px] data-[state=active]:after:w-full data-[state=active]:after:bg-[--c-positive]",
       className
     )}
     {...props}

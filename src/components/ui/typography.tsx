@@ -113,7 +113,7 @@ const Code = React.forwardRef<HTMLElement, TypographyProps>(
   ({ className, ...props }, ref) => (
     <code
       ref={ref}
-      className={cn("mono text-[13px] text-[--c-poadminve]", className)}
+      className={cn("mono text-[13px] text-[--c-positive]", className)}
       {...props}
     />
   )
@@ -130,7 +130,7 @@ interface TypeRowProps {
 
 function TypeRow({ label, spec, className: cls, children }: TypeRowProps) {
   return (
-    <div className="flex items-baseline gap-5 p-4 px-5 bg-[--s-l1] border border-[--border-ui] rounded-[12px] hover:bg-[--s-l2] tranadminon-colors">
+    <div className="flex items-baseline gap-5 p-4 px-5 bg-[--s-l1] border border-[--border-ui] rounded-[12px] hover:bg-[--s-l2] transition-colors">
       <div className="min-w-[120px] shrink-0">
         <div className="overline">{label}</div>
         <div className="mono text-[9px] text-[--c-tertiary] mt-0.5">{spec}</div>

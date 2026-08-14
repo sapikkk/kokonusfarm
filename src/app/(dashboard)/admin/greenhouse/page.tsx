@@ -187,7 +187,7 @@ export default async function AdminGreenhousePage() {
                         {gh._count.installations} unit
                       </TableCell>
                       <TableCell>
-                        <Badge variant={gh.isActive ? "poadminve" : "notice"} dot>
+                        <Badge variant={gh.isActive ? "positive" : "notice"} dot>
                           {gh.isActive ? "Aktif" : "Nonaktif"}
                         </Badge>
                       </TableCell>

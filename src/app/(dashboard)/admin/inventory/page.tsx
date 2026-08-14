@@ -16,6 +16,7 @@ import { PackageSearch, AlertCircle, TrendingUp, TrendingDown } from "lucide-rea
 import { GoodsReceiptDialog } from "@/components/inventory/goods-receipt-dialog"
 import { DeleteInventoryButton } from "@/components/inventory/delete-inventory-button"
 import { ActivePackManagerDialog } from "@/components/inventory/active-pack-manager-dialog"
+import { CategoryRequestsCard } from "@/components/inventory/category-requests-card"
 
 async function getInventory() {
   return prisma.inventoryItem.findMany({
@@ -46,6 +47,8 @@ export default async function AdminInventoryPage() {
           </p>
         </div>
       </div>
+
+      <CategoryRequestsCard />
 
       <Card>
         <CardHeader>

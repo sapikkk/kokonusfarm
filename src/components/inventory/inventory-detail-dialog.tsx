@@ -150,7 +150,7 @@ export function InventoryDetailDialog({ item }: InventoryDetailDialogProps) {
                 <p className="text-sm text-muted-foreground text-center py-4 bg-muted/30 rounded-lg">Belum ada riwayat tercatat</p>
               ) : (
                 item.inventoryLogs.map((log) => (
-                  <div key={log.id} className="flex gap-3 text-sm p-3 border rounded-lg bg-card tranadminon-all">
+                  <div key={log.id} className="flex gap-3 text-sm p-3 border rounded-lg bg-card transition-all">
                     <div
                       className="mt-1 h-8 w-8 rounded-full flex items-center justify-center shrink-0"
                       style={{

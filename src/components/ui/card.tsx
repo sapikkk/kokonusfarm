@@ -10,7 +10,7 @@ const Card = React.forwardRef<
     className={cn(
       "rounded-[18px] bg-card text-card-foreground",
       "border border-[--border-ui]",
-      "tranadminon-all duration-200",
+      "transition-all duration-200",
       "hover:-translate-y-0.5",
       glass && "glass-card",
       className

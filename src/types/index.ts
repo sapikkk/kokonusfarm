@@ -10,7 +10,6 @@ import type {
   TransactionStatus,
   PlantPhase,
   ProductionAction,
-  InventoryCategory,
   InventoryMovement,
   ActivePackStatus,
   HarvestReportStatus,
@@ -29,7 +28,6 @@ export type {
   TransactionStatus,
   PlantPhase,
   ProductionAction,
-  InventoryCategory,
   InventoryMovement,
   ActivePackStatus,
   HarvestReportStatus,
@@ -107,7 +105,7 @@ export interface InventoryItem {
   id: string;
   code: string;
   name: string;
-  category: InventoryCategory;
+  category: string;
   unit: string;
   currentStock: number;
   minStock: number;
